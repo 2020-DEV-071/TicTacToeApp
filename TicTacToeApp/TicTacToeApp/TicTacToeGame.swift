@@ -5,6 +5,9 @@ struct TicTacToeGame {
     private let players = [Player.x, .o]
     private(set) var gameBoard: GameBoard = GameBoard()
     
+    private var lastPlacedPlayer: Player?
+    
+    
     var numberOfPlayers: Int {
         self.players.count
     }
@@ -23,6 +26,11 @@ struct TicTacToeGame {
             }
         }
         
+        guard player != self.lastPlacedPlayer else {
+            throw GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedAgain)
+        }
+        
         self.gameBoard.board[position.row][position.coloumn] = player
+        self.lastPlacedPlayer = player
     }
 }

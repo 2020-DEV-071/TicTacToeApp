@@ -2,4 +2,6 @@
 enum GameError: Error, Equatable {
     
     case playerXShouldMoveFirst(message: String)
+    case samePlayerPlayedAgain(message: String)
+
 }

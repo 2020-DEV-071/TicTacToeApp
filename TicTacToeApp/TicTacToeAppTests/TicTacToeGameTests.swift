@@ -84,4 +84,13 @@ class TicTacToeGameTests: XCTestCase {
             XCTAssertEqual(error as! GameError, GameError.playerXShouldMoveFirst(message: "X should always goes first"))
         }
     }
+    
+    func test_playerPlaceTwiceInSequence_throwsError() {
+        
+        try! self.game.place(player: .x, at: Positions.r0c0)
+        
+        XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r0c1)) { error in
+            XCTAssertEqual(error as! GameError, GameError.samePlayerPlayedAgain(message: "Same player played again"))
+        }
+    }
 }
