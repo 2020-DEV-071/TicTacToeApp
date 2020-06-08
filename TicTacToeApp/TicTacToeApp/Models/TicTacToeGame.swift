@@ -1,4 +1,13 @@
 
+enum GameError: Error, Equatable {
+    
+    case playerXShouldMoveFirst(message: String)
+}
+
+enum GameConstants {
+    
+    static let invalidFirstPlayer = "X should always goes first"
+}
 
 struct TicTacToeGame {
     
@@ -16,6 +25,13 @@ struct TicTacToeGame {
     }
     
     mutating func place(player: Player, at position: Position) throws {
+        
+        if self.gameBoard.unfilledSquares == 9  {
+            guard player == .x else {
+                throw GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer)
+            }
+        }
+        
         self.gameBoard.board[position.row][position.coloumn] = player
     }
     
