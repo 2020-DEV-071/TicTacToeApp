@@ -34,7 +34,7 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertEqual(secondPlayer.rawValue, "O")
     }
     
-    func test_unfilledSquaresBeforeStart_returnsNine() {
+    func test_unfilledSquaresBeforeStart_returnsExpectedCount() {
         
         let unfilledSquares = self.game.unfilledSquares
         XCTAssertEqual(unfilledSquares, 9)
@@ -43,13 +43,25 @@ class TicTacToeGameTests: XCTestCase {
     func test_placeXFirst_throwsNoError() {
         
         let playerX = game.firstPlayer!
-        XCTAssertNoThrow(try self.game.place(player: playerX))
+        
+        let row0Coloumn0 = Position(row: 0, coloumn: 0)
+        XCTAssertNoThrow(try self.game.place(player: playerX, at: row0Coloumn0))
     }
     
-    func test_unfilledSquaresAfterPlacingFirstPlayer_returnsEight() {
+    func test_unfilledSquaresAfterPlacingFirstPlayer_returnsExpectedCount() {
         
-        try! self.game.place(player: .x)
+        let row0Coloumn0 = Position(row: 0, coloumn: 0)
+        try! self.game.place(player: .x, at: row0Coloumn0)
         let unfilledSqaures = self.game.unfilledSquares
         XCTAssertEqual(unfilledSqaures, 8)
+    }
+    
+    func test_playerAtPosition_returnsPlacedPlayer() {
+        
+        let row0Coloumn0 = Position(row: 0, coloumn: 0)
+        try! self.game.place(player: .x, at: row0Coloumn0)
+        let player = self.game.player(at: row0Coloumn0)
+        
+        XCTAssertEqual(player, Player.x)
     }
 }

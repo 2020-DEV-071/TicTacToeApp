@@ -5,6 +5,12 @@ enum Player: Character {
     case o = "O"
 }
 
+struct Position {
+    
+    let row: Int
+    let coloumn: Int
+}
+
 struct TicTacToeGame {
     
     private let players = [Player.x, .o]
@@ -30,8 +36,13 @@ struct TicTacToeGame {
         return count
     }
     
-    mutating func place(player: Player) throws {
+    mutating func place(player: Player, at position: Position) throws {
         
-        self.board[0][0] = player
+        self.board[position.row][position.coloumn] = player
+    }
+    
+    func player(at position: Position) -> Player? {
+        
+        return self.board[position.row][position.coloumn]
     }
 }
