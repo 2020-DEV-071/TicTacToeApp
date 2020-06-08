@@ -25,5 +25,4 @@ struct TicTacToeGame {
         
         self.gameBoard.board[position.row][position.coloumn] = player
     }
-    
 }
