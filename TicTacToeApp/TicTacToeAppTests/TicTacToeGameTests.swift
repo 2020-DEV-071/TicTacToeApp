@@ -7,11 +7,13 @@ class TicTacToeGameTests: XCTestCase {
     var game: TicTacToeGame!
     
     override func setUp() {
+        super.setUp()
         self.game = TicTacToeGame()
     }
     
     override func tearDown() {
         self.game = nil
+        super.tearDown()
     }
     
     func test_numberOfPlayers_returnsTwo() {
@@ -30,5 +32,11 @@ class TicTacToeGameTests: XCTestCase {
         
         let secondPlayer = self.game.secondPlayer!
         XCTAssertEqual(secondPlayer.rawValue, "O")
+    }
+    
+    func test_unfilledSquares_returnsNine() {
+        
+        let unfilledSquares = self.game.unfilledSquares
+        XCTAssertEqual(unfilledSquares, 9)
     }
 }

@@ -18,4 +18,8 @@ struct TicTacToeGame {
     var secondPlayer: Player? {
         self.players.last
     }
+    
+    var unfilledSquares: Int {
+        return 9
+    }
 }
