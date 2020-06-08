@@ -17,7 +17,8 @@ struct GameBoard {
     
     func player(at position: Position) throws -> Player? {
         
-        guard self.board[position.row].indices.contains(position.coloumn
+        guard self.board.indices.contains(position.row),
+            self.board[position.row].indices.contains(position.coloumn
             ) else { throw GameError.positionOutOfRange(message: GameConstants.invalidPosition) }
         
         return self.board[position.row][position.coloumn]
