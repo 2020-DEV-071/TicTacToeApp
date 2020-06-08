@@ -32,6 +32,10 @@ struct GameBoard {
     
     mutating func placePlayer(at position: Position) throws {
         
+        guard self.player(at: position) == nil else {
+             throw GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed)
+         }
+        
         self.board[position.row][position.coloumn] = self.currentPlayer
         self.lastPlacedPlayer = self.currentPlayer
     }

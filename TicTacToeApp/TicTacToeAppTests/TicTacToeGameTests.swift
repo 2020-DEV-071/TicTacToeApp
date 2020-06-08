@@ -93,4 +93,14 @@ class TicTacToeGameTests: XCTestCase {
             XCTAssertEqual(error as! GameError, GameError.samePlayerPlayedAgain(message: "Same player played again"))
         }
     }
+    
+    func test_playerPlacedOnSamePosition_throwsError() {
+        
+        try! self.game.place(player: .x, at: Positions.r0c0)
+        try! self.game.place(player: .o, at: Positions.r0c1)
+        
+        XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r0c1)) { error in
+            XCTAssertEqual(error as! GameError, GameError.positionAlreadyPlayed(message: "Position already played"))
+        }
+    }
 }
