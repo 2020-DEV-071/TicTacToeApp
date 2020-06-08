@@ -8,6 +8,7 @@ enum Player: Character {
 struct TicTacToeGame {
     
     private let players = [Player.x, .o]
+    private var board: [[Player?]] = [[Player?]](repeating: [Player?](repeating: nil, count: 3), count: 3)
     
     var numberOfPlayers: Int {
         self.players.count
@@ -20,10 +21,17 @@ struct TicTacToeGame {
     }
     
     var unfilledSquares: Int {
-        return 9
+        var count = 0
+        self.board.forEach { row in
+            count = row.reduce(count) { count, player in
+                return player == nil ? count + 1 : count
+            }
+        }
+        return count
     }
     
-    func place(player: Player) throws {
+    mutating func place(player: Player) throws {
         
+        self.board[0][0] = player
     }
 }
