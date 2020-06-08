@@ -15,9 +15,11 @@ struct TicTacToeGame {
         self.players.last
     }
     
-    mutating func place(player: Player, at position: Position) throws {
+    mutating func place(player: Player, at position: Position) throws -> String {
         
         try self.gameBoard.setCurrentPlayer(player: player)
         try self.gameBoard.placePlayer(at: position)
+        
+        return "draw"
     }
 }

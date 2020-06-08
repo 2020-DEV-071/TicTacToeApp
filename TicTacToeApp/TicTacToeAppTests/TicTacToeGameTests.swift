@@ -66,7 +66,7 @@ class TicTacToeGameTests: XCTestCase {
     
     func test_unfilledSquaresAfterPlacingFirstPlayer_returnsExpectedCount() {
         
-        try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
         let unfilledSqaures = self.game.gameBoard.unfilledSquares
         
         XCTAssertEqual(unfilledSqaures, 8)
@@ -74,7 +74,7 @@ class TicTacToeGameTests: XCTestCase {
     
     func test_playerAtPosition_returnsPlacedPlayer() {
         
-        try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
         let player = try! self.game.gameBoard.player(at: Positions.r0c0)
         
         XCTAssertEqual(player, Player.x)
@@ -89,7 +89,7 @@ class TicTacToeGameTests: XCTestCase {
     
     func test_playerPlaceTwiceInSequence_throwsError() {
         
-        try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
         
         XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r0c1)) { error in
             XCTAssertEqual(error as! GameError, GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedTwice))
@@ -98,8 +98,8 @@ class TicTacToeGameTests: XCTestCase {
     
     func test_playerPlacedOnPlayedPosition_throwsError() {
         
-        try! self.game.place(player: .x, at: Positions.r0c0)
-        try! self.game.place(player: .o, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .o, at: Positions.r0c1)
         
         XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r0c1)) { error in
             XCTAssertEqual(error as! GameError, GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed))
@@ -111,5 +111,20 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r100c100)) { error in
             XCTAssertEqual(error as! GameError, GameError.positionOutOfRange(message: GameConstants.invalidPosition))
         }
+    }
+    
+    func test_fillAllPositionsWithoutFormingPlayerRows_returnsDraw() {
+        
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r2c0)
+        let _ = try! self.game.place(player: .o, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c2)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c1)
+        let _ = try! self.game.place(player: .x, at: Positions.r1c2)
+        let _ = try! self.game.place(player: .o, at: Positions.r2c2)
+        let gameResult = try! self.game.place(player: .x, at: Positions.r2c1)
+        
+        XCTAssertEqual(gameResult, "draw")
     }
 }
