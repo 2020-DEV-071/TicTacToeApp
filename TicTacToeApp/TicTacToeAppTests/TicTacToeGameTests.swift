@@ -125,6 +125,6 @@ class TicTacToeGameTests: XCTestCase {
         let _ = try! self.game.place(player: .o, at: Positions.r2c2)
         let gameResult = try! self.game.place(player: .x, at: Positions.r2c1)
         
-        XCTAssertEqual(gameResult, "draw")
+        XCTAssertEqual(gameResult, GameResult.draw)
     }
 }

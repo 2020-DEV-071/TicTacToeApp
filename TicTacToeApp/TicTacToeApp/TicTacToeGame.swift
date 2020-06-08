@@ -1,4 +1,8 @@
 
+enum GameResult {
+    
+    case draw
+}
 
 struct TicTacToeGame {
     
@@ -15,11 +19,11 @@ struct TicTacToeGame {
         self.players.last
     }
     
-    mutating func place(player: Player, at position: Position) throws -> String {
+    mutating func place(player: Player, at position: Position) throws -> GameResult {
         
         try self.gameBoard.setCurrentPlayer(player: player)
         try self.gameBoard.placePlayer(at: position)
         
-        return "draw"
+        return .draw
     }
 }
