@@ -7,6 +7,9 @@ struct TicTacToeGame {
         self.players.count
     }
     var firstPlayer: Character? {
-        return players.first
+        self.players.first
+    }
+    var secondPlayer: Character? {
+        self.players.last
     }
 }

@@ -25,4 +25,10 @@ class TicTacToeGameTests: XCTestCase {
         let firstPlayer = self.game.firstPlayer!
         XCTAssertEqual(firstPlayer, "X")
     }
+    
+    func test_secondPlayer_returnsO() {
+        
+        let secondPlayer = self.game.secondPlayer!
+        XCTAssertEqual(secondPlayer, "O")
+    }
 }
