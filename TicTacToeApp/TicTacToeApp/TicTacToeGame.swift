@@ -22,4 +22,8 @@ struct TicTacToeGame {
     var unfilledSquares: Int {
         return 9
     }
+    
+    func place(player: Player) throws {
+        
+    }
 }
