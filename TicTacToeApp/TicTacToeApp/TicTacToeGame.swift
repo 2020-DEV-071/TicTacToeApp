@@ -1,13 +1,4 @@
 
-enum GameError: Error, Equatable {
-    
-    case playerXShouldMoveFirst(message: String)
-}
-
-enum GameConstants {
-    
-    static let invalidFirstPlayer = "X should always goes first"
-}
 
 struct TicTacToeGame {
     
