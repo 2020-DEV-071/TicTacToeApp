@@ -15,7 +15,11 @@ struct GameBoard {
         return count
     }
     
-    func player(at position: Position) -> Player? {
+    func player(at position: Position) throws -> Player? {
+        
+        guard self.board[position.row].indices.contains(position.coloumn
+            ) else { throw GameError.positionOutOfRange(message: GameConstants.invalidPosition) }
+        
         return self.board[position.row][position.coloumn]
     }
     
@@ -32,9 +36,9 @@ struct GameBoard {
     
     mutating func placePlayer(at position: Position) throws {
         
-        guard self.player(at: position) == nil else {
-             throw GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed)
-         }
+        guard try self.player(at: position) == nil else {
+            throw GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed)
+        }
         
         self.board[position.row][position.coloumn] = self.currentPlayer
         self.lastPlacedPlayer = self.currentPlayer

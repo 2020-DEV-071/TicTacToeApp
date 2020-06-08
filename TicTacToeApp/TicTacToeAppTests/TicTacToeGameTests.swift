@@ -15,6 +15,8 @@ enum Positions {
     static let r2c0 = Position(row: 2, coloumn: 0)
     static let r2c1 = Position(row: 2, coloumn: 1)
     static let r2c2 = Position(row: 2, coloumn: 2)
+    
+    static let r100c0 = Position(row: 1, coloumn: 100)
 }
 
 class TicTacToeGameTests: XCTestCase {
@@ -73,7 +75,7 @@ class TicTacToeGameTests: XCTestCase {
     func test_playerAtPosition_returnsPlacedPlayer() {
         
         try! self.game.place(player: .x, at: Positions.r0c0)
-        let player = self.game.gameBoard.player(at: Positions.r0c0)
+        let player = try! self.game.gameBoard.player(at: Positions.r0c0)
         
         XCTAssertEqual(player, Player.x)
     }
@@ -101,6 +103,13 @@ class TicTacToeGameTests: XCTestCase {
         
         XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r0c1)) { error in
             XCTAssertEqual(error as! GameError, GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed))
+        }
+    }
+    
+    func test_playerPlaceOutOfRangePosition_throwsError() {
+        
+        XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r100c0)) { error in
+            XCTAssertEqual(error as! GameError, GameError.positionOutOfRange(message: GameConstants.invalidPosition))
         }
     }
 }
