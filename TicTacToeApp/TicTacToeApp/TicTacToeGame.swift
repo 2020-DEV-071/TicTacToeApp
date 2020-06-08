@@ -1,15 +1,21 @@
 
+enum Player: Character {
+    
+    case x = "X"
+    case o = "O"
+}
+
 struct TicTacToeGame {
     
-    private let players: [Character] = ["X", "O"]
+    private let players = [Player.x, .o]
     
     var numberOfPlayers: Int {
         self.players.count
     }
-    var firstPlayer: Character? {
+    var firstPlayer: Player? {
         self.players.first
     }
-    var secondPlayer: Character? {
+    var secondPlayer: Player? {
         self.players.last
     }
 }
