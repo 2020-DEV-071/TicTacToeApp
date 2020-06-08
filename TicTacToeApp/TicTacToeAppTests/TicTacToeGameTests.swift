@@ -81,7 +81,7 @@ class TicTacToeGameTests: XCTestCase {
     func test_oPlayerGoesFirst_throwsError() {
         
         XCTAssertThrowsError(try self.game.place(player: .o, at: Positions.r0c0)) { error in
-            XCTAssertEqual(error as! GameError, GameError.playerXShouldMoveFirst(message: "X should always goes first"))
+            XCTAssertEqual(error as! GameError, GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer))
         }
     }
     
@@ -90,17 +90,17 @@ class TicTacToeGameTests: XCTestCase {
         try! self.game.place(player: .x, at: Positions.r0c0)
         
         XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r0c1)) { error in
-            XCTAssertEqual(error as! GameError, GameError.samePlayerPlayedAgain(message: "Same player played again"))
+            XCTAssertEqual(error as! GameError, GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedTwice))
         }
     }
     
-    func test_playerPlacedOnSamePosition_throwsError() {
+    func test_playerPlacedOnPlayedPosition_throwsError() {
         
         try! self.game.place(player: .x, at: Positions.r0c0)
         try! self.game.place(player: .o, at: Positions.r0c1)
         
         XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r0c1)) { error in
-            XCTAssertEqual(error as! GameError, GameError.positionAlreadyPlayed(message: "Position already played"))
+            XCTAssertEqual(error as! GameError, GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed))
         }
     }
 }

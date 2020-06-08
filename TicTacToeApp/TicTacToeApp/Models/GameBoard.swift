@@ -24,7 +24,7 @@ struct GameBoard {
         try self.validateIfFirst(player: player)
         
         guard player != self.lastPlacedPlayer else {
-            throw GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedAgain)
+            throw GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedTwice)
         }
         
         self.currentPlayer = player
