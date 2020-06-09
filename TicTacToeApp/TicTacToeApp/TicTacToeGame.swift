@@ -20,31 +20,48 @@ struct TicTacToeGame {
         try self.gameBoard.setCurrentPlayer(player: player)
         try self.gameBoard.placePlayer(at: position)
         
-        return self.gameStatus()
-    }
-    
-    private func gameStatus() -> GameResult {
-        
-        guard let result = self.boardResult.isHorizontalRow(in: self.gameBoard) else {
-            return .draw
-        }
-        
-        return result
+        return self.boardResult.gameStatus(for: self.gameBoard)
     }
 }
 
 struct BoardResult: WinCriteria {
     
-    func isHorizontalRow(in gameBoard: Board) -> GameResult? {
+     func gameStatus(for gameBoard: Board) -> GameResult {
         
-        guard  let currentPlayer = gameBoard.currentPlayer else { return nil }
+        guard let currentPlayer = gameBoard.currentPlayer else { return .draw }
+        
+        guard self.isHorizontalRow(in: gameBoard) ||
+            self.isVerticalRow(in: gameBoard)
+        else {
+            return .draw
+        }
+        
+        return .win(player: currentPlayer)
+    }
+    
+    private func isHorizontalRow(in gameBoard: Board) -> Bool {
+        
+        guard  let currentPlayer = gameBoard.currentPlayer else { return false }
         
         for row in gameBoard.board where row.count == 3 {
             if row.elementsEqual(self.winRow(for: currentPlayer)) {
-                return .win(player: currentPlayer)
+                return true
             }
         }
-        return .draw
+        return false
+    }
+    
+    private func isVerticalRow(in gameBoard: Board) -> Bool {
+        
+        guard  let currentPlayer = gameBoard.currentPlayer else { return false }
+        
+        for i in 0..<gameBoard.board.count {
+            let coloumn = gameBoard.board.map { $0[i] }
+            if coloumn.elementsEqual(self.winRow(for: currentPlayer)) {
+                return true
+            }
+        }
+        return false
     }
     
     func winRow(for player: Player) -> [Player] {
