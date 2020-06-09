@@ -5,6 +5,12 @@ struct TicTacToeGame {
     private let resultAnalyser = ResultAnalyser()
     private var isComplete = false
     
+    private(set) var player = Player.x
+    
+    mutating func place(at position: Position) throws -> GameResult {
+        
+        try self.place(player: self.player, at: position)
+    }
     
     mutating func place(player: Player, at position: Position) throws -> GameResult {
         

@@ -232,4 +232,12 @@ class TicTacToeGameTests: XCTestCase {
             XCTAssertEqual(error as! GameError, GameError.gameEnd(message: GameConstants.gameEnd))
         }
     }
+    
+    func test_placePlayer_movesXFirst() {
+        
+        let _ = try! self.game.place(at: Positions.r1c1)
+        let playerX = try! self.game.gameBoard.player(at: Positions.r1c1)
+        
+        XCTAssertEqual(playerX, Player.x)
+    }
 }
