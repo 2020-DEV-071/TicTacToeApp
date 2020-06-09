@@ -30,4 +30,12 @@ class ViewControllerTests: XCTestCase {
         self.gameViewController.loadViewIfNeeded()
         XCTAssertTrue(self.gameViewController.collectionView.dataSource is GameViewController)
     }
+    
+    func test_numberOfSectionsInCollectionview_returns3() {
+        
+        self.gameViewController.loadViewIfNeeded()
+        let sectionsCount = self.gameViewController.collectionView.numberOfSections
+        
+        XCTAssertEqual(sectionsCount, 3)
+    }
 }
