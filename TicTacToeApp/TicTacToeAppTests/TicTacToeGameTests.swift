@@ -123,8 +123,19 @@ class TicTacToeGameTests: XCTestCase {
         let _ = try! self.game.place(player: .o, at: Positions.r1c1)
         let _ = try! self.game.place(player: .x, at: Positions.r1c2)
         let _ = try! self.game.place(player: .o, at: Positions.r2c2)
-        let gameResult = try! self.game.place(player: .x, at: Positions.r2c1)
+        let drawResult = try! self.game.place(player: .x, at: Positions.r2c1)
         
-        XCTAssertEqual(gameResult, GameResult.draw)
+        XCTAssertEqual(drawResult, GameResult.draw)
+    }
+    
+    func test_placeXInHorizontalRow_returnsWinX() {
+        
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c1)
+        let winResult = try! self.game.place(player: .x, at: Positions.r0c2)
+        
+        XCTAssertEqual(winResult, GameResult.win)
     }
 }
