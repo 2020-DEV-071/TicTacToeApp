@@ -233,7 +233,7 @@ class TicTacToeGameTests: XCTestCase {
         }
     }
     
-    func test_placePlayer_movesXFirst() {
+    func test_placePlayerBydefault_movesXFirst() {
         
         let _ = try! self.game.place(at: Positions.r1c1)
         let playerX = try! self.game.gameBoard.player(at: Positions.r1c1)
