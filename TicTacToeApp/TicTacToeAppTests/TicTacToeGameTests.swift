@@ -249,5 +249,15 @@ class TicTacToeGameTests: XCTestCase {
         let playerO = try! self.game.gameBoard.player(at: Positions.r2c2)
         XCTAssertEqual(playerO, Player.o)
     }
-
+    
+    func test_placeSamePlayerAfterPlacedPositionError_returnsSamePlayer() {
+        
+        let _ = try! self.game.place(at: Positions.r1c1)
+        let _ = try! self.game.place(at: Positions.r2c2)
+        let _ = try? self.game.place(at: Positions.r1c1)
+        let _ = try! self.game.place(at: Positions.r0c0)
+        
+        let playerX = try! self.game.gameBoard.player(at: Positions.r0c0)
+        XCTAssertEqual(playerX, Player.x)
+    }
 }
