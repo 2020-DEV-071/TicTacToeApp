@@ -1,6 +1,6 @@
 
-enum GameResult {
+enum GameResult: Equatable {
     
     case draw
-    case win
+    case win(player: Player)
 }

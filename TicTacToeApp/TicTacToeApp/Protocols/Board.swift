@@ -2,5 +2,5 @@
 protocol Board {
     
     var board: [[Player?]] { get }
-    func winRow() -> [Player]?
+    var currentPlayer: Player? { get }
 }

@@ -2,7 +2,7 @@
 struct GameBoard: Board {
     
     private(set) var board: [[Player?]] = [[Player?]](repeating: [Player?](repeating: nil, count: 3), count: 3)
-    private var currentPlayer: Player?
+    private(set) var currentPlayer: Player?
     private var lastPlacedPlayer: Player?
     
     var unfilledSquares: Int {
@@ -52,11 +52,5 @@ struct GameBoard: Board {
                 throw GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer)
             }
         }
-    }
-    
-    func winRow() -> [Player]? {
-        
-        guard  let currentPlayer = self.currentPlayer else { return nil }
-        return Array(repeating: currentPlayer, count: 3)
     }
 }
