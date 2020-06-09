@@ -33,35 +33,22 @@ class TicTacToeGameTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_numberOfPlayers_returnsTwo() {
-        
-        let playersCount = self.game.numberOfPlayers
-        XCTAssertEqual(playersCount, 2)
-    }
-    
-    func test_firtPlayer_returnsX() {
-        
-        let firstPlayer = self.game.firstPlayer!
-        XCTAssertEqual(firstPlayer.rawValue, "X")
-    }
-    
-    func test_secondPlayer_returnsO() {
-        
-        let secondPlayer = self.game.secondPlayer!
-        XCTAssertEqual(secondPlayer.rawValue, "O")
-    }
-    
     func test_unfilledSquaresBeforeStart_returnsExpectedCount() {
         
         let unfilledSquares = self.game.gameBoard.unfilledSquares
         XCTAssertEqual(unfilledSquares, 9)
     }
     
-    func test_xPlayerGoesFirst_throwsNoError() {
+    func test_playerXGoesFirst_throwsNoError() {
         
-        let playerX = game.firstPlayer!
+        XCTAssertNoThrow(try self.game.place(player: .x, at: Positions.r0c0))
+    }
+    
+    func test_playerOGoesFirst_throwsError() {
         
-        XCTAssertNoThrow(try self.game.place(player: playerX, at: Positions.r0c0))
+        XCTAssertThrowsError(try self.game.place(player: .o, at: Positions.r0c0)) { error in
+            XCTAssertEqual(error as! GameError, GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer))
+        }
     }
     
     func test_unfilledSquaresAfterPlacingFirstPlayer_returnsExpectedCount() {
@@ -78,13 +65,6 @@ class TicTacToeGameTests: XCTestCase {
         let player = try! self.game.gameBoard.player(at: Positions.r0c0)
         
         XCTAssertEqual(player, Player.x)
-    }
-    
-    func test_PlayerOGoesFirst_throwsError() {
-        
-        XCTAssertThrowsError(try self.game.place(player: .o, at: Positions.r0c0)) { error in
-            XCTAssertEqual(error as! GameError, GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer))
-        }
     }
     
     func test_playerPlaceTwiceInSequence_throwsError() {
@@ -235,7 +215,7 @@ class TicTacToeGameTests: XCTestCase {
         
         let _ = try! self.game.place(player: .x, at: Positions.r0c0)
         let _ = try? self.game.place(player: .o, at: Positions.r0c0)
-
+        
         XCTAssertNoThrow(try self.game.place(player: .o, at: Positions.r1c1))
     }
     

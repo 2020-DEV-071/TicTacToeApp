@@ -1,20 +1,10 @@
 
 struct TicTacToeGame {
     
-    private let players = [Player.x, .o]
     private(set) var gameBoard: GameBoard = GameBoard()
     private let resultAnalyser = ResultAnalyser()
     private var isComplete = false
     
-    var numberOfPlayers: Int {
-        self.players.count
-    }
-    var firstPlayer: Player? {
-        self.players.first
-    }
-    var secondPlayer: Player? {
-        self.players.last
-    }
     
     mutating func place(player: Player, at position: Position) throws -> GameResult {
         
@@ -98,7 +88,7 @@ struct ResultAnalyser: WinCriteria {
         
         return true
     }
-
+    
     func winRow(for player: Player) -> [Player] {
         
         return Array(repeating: player, count: 3)
