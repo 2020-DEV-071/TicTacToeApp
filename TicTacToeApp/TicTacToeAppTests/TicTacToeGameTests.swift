@@ -222,7 +222,11 @@ class TicTacToeGameTests: XCTestCase {
     
     func test_placePlayersForIncmpleteGame_returnsGameInProgress() {
         
-        let inProgress = try! self.game.place(player: .x, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .o, at: Positions.r0c2)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c1)
+        let inProgress = try! self.game.place(player: .x, at: Positions.r2c2)
         
         XCTAssertEqual(inProgress, GameResult.inProgress)
     }
