@@ -26,38 +26,34 @@ struct TicTacToeGame {
 
 struct BoardResult: WinCriteria {
     
-     func gameStatus(for gameBoard: Board) -> GameResult {
+    func gameStatus(for gameBoard: Board) -> GameResult {
         
         guard let currentPlayer = gameBoard.currentPlayer else { return .draw }
+        let winRow = self.winRow(for: currentPlayer)
         
-        guard self.isHorizontalRow(in: gameBoard) ||
-            self.isVerticalRow(in: gameBoard)
-        else {
-            return .draw
+        guard self.containsHorizontalRow(in: gameBoard.board, for: winRow) ||
+            self.containsVerticalRow(in: gameBoard.board, for: winRow)
+            else {
+                return .draw
         }
-        
         return .win(player: currentPlayer)
     }
     
-    private func isHorizontalRow(in gameBoard: Board) -> Bool {
+    private func containsHorizontalRow(in gameBoard: Matrix2D, for winRow: [Player]) -> Bool {
         
-        guard  let currentPlayer = gameBoard.currentPlayer else { return false }
-        
-        for row in gameBoard.board where row.count == 3 {
-            if row.elementsEqual(self.winRow(for: currentPlayer)) {
+        for row in gameBoard where row.count == 3 {
+            if row.elementsEqual(winRow) {
                 return true
             }
         }
         return false
     }
     
-    private func isVerticalRow(in gameBoard: Board) -> Bool {
+    private func containsVerticalRow(in gameBoard: Matrix2D, for winRow: [Player]) -> Bool {
         
-        guard  let currentPlayer = gameBoard.currentPlayer else { return false }
-        
-        for i in 0..<gameBoard.board.count {
-            let coloumn = gameBoard.board.map { $0[i] }
-            if coloumn.elementsEqual(self.winRow(for: currentPlayer)) {
+        for i in 0..<gameBoard.count {
+            let coloumn = gameBoard.map { $0[i] }
+            if coloumn.elementsEqual(winRow) {
                 return true
             }
         }

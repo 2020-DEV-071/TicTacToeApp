@@ -1,6 +1,8 @@
 
+typealias Matrix2D = [[Player?]]
+
 protocol Board {
     
-    var board: [[Player?]] { get }
+    var board: Matrix2D { get }
     var currentPlayer: Player? { get }
 }
