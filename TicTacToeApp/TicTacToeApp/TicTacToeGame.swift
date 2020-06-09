@@ -1,14 +1,9 @@
 
-enum GameResult {
-    
-    case draw
-    case win
-}
-
 struct TicTacToeGame {
     
     private let players = [Player.x, .o]
-    private(set) var gameBoard: GameBoard = GameBoard()//GameBoard(winLogic: BoardResult())
+    private(set) var gameBoard: GameBoard = GameBoard()
+    private let boardResult = BoardResult()
     
     var numberOfPlayers: Int {
         self.players.count
@@ -24,15 +19,16 @@ struct TicTacToeGame {
         
         try self.gameBoard.setCurrentPlayer(player: player)
         try self.gameBoard.placePlayer(at: position)
-        self.gameBoard.winLogic = BoardResult()
-                
-        return self.gameBoard.winLogic?.isHorizontalRow(board: self.gameBoard) ?? true ? .win : .draw
+        
+        return self.gameStatus() ? .win : .draw
     }
     
-    
+    private func gameStatus() -> Bool {
+        return self.boardResult.isHorizontalRow(board: self.gameBoard)
+    }
 }
 
-struct BoardResult: GameWinRules {
+struct BoardResult: WinCriteria {
     
     func isHorizontalRow(board: Board) -> Bool {
         
@@ -43,5 +39,4 @@ struct BoardResult: GameWinRules {
         }
         return false
     }
-    
 }

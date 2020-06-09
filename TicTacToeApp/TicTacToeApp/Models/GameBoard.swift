@@ -1,24 +1,9 @@
 
-protocol Board {
-    
-    var board: [[Player?]] { get set }
-    func winRow() -> [Player]?
-}
-
-protocol GameWinRules {
-    
-    func isHorizontalRow(board: Board) -> Bool
-}
-
-
 struct GameBoard: Board {
     
-    var board: [[Player?]] = [[Player?]](repeating: [Player?](repeating: nil, count: 3), count: 3)
+    private(set) var board: [[Player?]] = [[Player?]](repeating: [Player?](repeating: nil, count: 3), count: 3)
     private var currentPlayer: Player?
     private var lastPlacedPlayer: Player?
-    var winLogic: GameWinRules?
-    
-    
     
     var unfilledSquares: Int {
         var count = 0
@@ -71,9 +56,7 @@ struct GameBoard: Board {
     
     func winRow() -> [Player]? {
         
-        guard  let currentPlayer = self.currentPlayer else {
-            return nil
-        }
+        guard  let currentPlayer = self.currentPlayer else { return nil }
         return Array(repeating: currentPlayer, count: 3)
     }
 }
