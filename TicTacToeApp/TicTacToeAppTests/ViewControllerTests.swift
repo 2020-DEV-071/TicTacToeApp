@@ -25,4 +25,10 @@ class ViewControllerTests: XCTestCase {
         self.gameViewController.loadViewIfNeeded()
         XCTAssertNotNil(self.gameViewController.collectionView)
     }
+    
+    func test_collectionViewDataSourceIsNotNil_afterViewDidLoad() {
+        
+        self.gameViewController.loadViewIfNeeded()
+        XCTAssertTrue(self.gameViewController.collectionView.dataSource is ViewController)
+    }
 }
