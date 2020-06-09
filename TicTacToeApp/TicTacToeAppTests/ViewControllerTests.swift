@@ -11,6 +11,7 @@ class ViewControllerTests: XCTestCase {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         self.gameViewController = storyboard.instantiateViewController(identifier: "ViewController")
+        self.gameViewController.loadViewIfNeeded()
     }
     
     override func tearDown() {
@@ -21,21 +22,17 @@ class ViewControllerTests: XCTestCase {
     
     func test_collectionViewIsNotNil_afterViewDidLoad() {
         
-        self.gameViewController.loadViewIfNeeded()
         XCTAssertNotNil(self.gameViewController.collectionView)
     }
     
     func test_collectionViewDataSourceIsNotNil_afterViewDidLoad() {
         
-        self.gameViewController.loadViewIfNeeded()
         XCTAssertTrue(self.gameViewController.collectionView.dataSource is GameViewController)
     }
     
     func test_numberOfSectionsInCollectionview_returns3() {
         
-        self.gameViewController.loadViewIfNeeded()
         let sectionsCount = self.gameViewController.collectionView.numberOfSections
-        
         XCTAssertEqual(sectionsCount, 3)
     }
 }
