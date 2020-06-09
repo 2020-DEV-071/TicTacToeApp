@@ -240,4 +240,14 @@ class TicTacToeGameTests: XCTestCase {
         
         XCTAssertEqual(playerX, Player.x)
     }
+    
+    func test_placedPlayerSecondBydefault_movesOSecond() {
+        
+        let _ = try! self.game.place(at: Positions.r1c1)
+        let _ = try! self.game.place(at: Positions.r2c2)
+        
+        let playerO = try! self.game.gameBoard.player(at: Positions.r2c2)
+        XCTAssertEqual(playerO, Player.o)
+    }
+
 }

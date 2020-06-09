@@ -24,6 +24,8 @@ struct TicTacToeGame {
         let result = self.resultAnalyser.gameStatus(for: self.gameBoard)
         self.isComplete = result != .inProgress ? true : false
         
+        self.player = self.player == .x ? .o : .x
+        
         return result
     }
 }
