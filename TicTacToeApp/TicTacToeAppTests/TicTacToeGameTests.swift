@@ -80,7 +80,7 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertEqual(player, Player.x)
     }
     
-    func test_oPlayerGoesFirst_throwsError() {
+    func test_PlayerOGoesFirst_throwsError() {
         
         XCTAssertThrowsError(try self.game.place(player: .o, at: Positions.r0c0)) { error in
             XCTAssertEqual(error as! GameError, GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer))
@@ -113,7 +113,7 @@ class TicTacToeGameTests: XCTestCase {
         }
     }
     
-    func test_fillAllPositionsWithoutFormingPlayerRows_returnsDraw() {
+    func test_fillAllPositionsWithoutFormingRows_returnsDraw() {
         
         let _ = try! self.game.place(player: .x, at: Positions.r0c0)
         let _ = try! self.game.place(player: .o, at: Positions.r1c0)
@@ -128,7 +128,7 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertEqual(drawResult, GameResult.draw)
     }
     
-    func test_placeXInHorizontalRow_returnsWinX() {
+    func test_placeXHorizontalInRow_returnsWinX() {
         
         let _ = try! self.game.place(player: .x, at: Positions.r0c0)
         let _ = try! self.game.place(player: .o, at: Positions.r1c0)
@@ -139,7 +139,7 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertEqual(winX, GameResult.win(player: .x))
     }
     
-    func test_placeOInHorizontalRow_returnsWinO() {
+    func test_placeOHorizontalInRow_returnsWinO() {
         
         let _ = try! self.game.place(player: .x, at: Positions.r1c0)
         let _ = try! self.game.place(player: .o, at: Positions.r0c0)
@@ -151,7 +151,7 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertEqual(winO, GameResult.win(player: .o))
     }
     
-    func test_placeXInVerticalRow_returnsWinX() {
+    func test_placeXVerticalInRow_returnsWinX() {
         
         let _ = try! self.game.place(player: .x, at: Positions.r0c0)
         let _ = try! self.game.place(player: .o, at: Positions.r0c1)
@@ -162,7 +162,7 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertEqual(winX, GameResult.win(player: .x))
     }
     
-    func test_placeOInVerticalRow_returnsWinO() {
+    func test_placeOVerticalInRow_returnsWinO() {
         
         let _ = try! self.game.place(player: .x, at: Positions.r0c1)
         let _ = try! self.game.place(player: .o, at: Positions.r0c0)
