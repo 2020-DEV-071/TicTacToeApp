@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C4F03CC248FFEFF008294D0 /* ResultAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4F03CB248FFEFF008294D0 /* ResultAnalyser.swift */; };
 		3CD8D598248EA0CF000C0A23 /* TicTacToeGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD8D597248EA0CF000C0A23 /* TicTacToeGameTests.swift */; };
 		3CD8D59A248EA115000C0A23 /* TicTacToeGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD8D599248EA115000C0A23 /* TicTacToeGame.swift */; };
 		3CD8D59D248ECDEF000C0A23 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD8D59C248ECDEF000C0A23 /* Player.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C4F03CB248FFEFF008294D0 /* ResultAnalyser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAnalyser.swift; sourceTree = "<group>"; };
 		3CD8D597248EA0CF000C0A23 /* TicTacToeGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeGameTests.swift; sourceTree = "<group>"; };
 		3CD8D599248EA115000C0A23 /* TicTacToeGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeGame.swift; sourceTree = "<group>"; };
 		3CD8D59C248ECDEF000C0A23 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				3CD8D59C248ECDEF000C0A23 /* Player.swift */,
 				3CD8D59E248ECE0B000C0A23 /* Position.swift */,
 				3CD8D5AF248F1B57000C0A23 /* GameResult.swift */,
+				3C4F03CB248FFEFF008294D0 /* ResultAnalyser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				3CD8D5B0248F1B57000C0A23 /* GameResult.swift in Sources */,
 				3CD8D5A5248ED601000C0A23 /* GameError.swift in Sources */,
 				3CDC4A0F248E9F74006469E3 /* SceneDelegate.swift in Sources */,
+				3C4F03CC248FFEFF008294D0 /* ResultAnalyser.swift in Sources */,
 				3CD8D5A7248ED61A000C0A23 /* GameConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
