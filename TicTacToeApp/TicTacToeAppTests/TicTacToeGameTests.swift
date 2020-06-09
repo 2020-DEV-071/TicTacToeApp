@@ -230,4 +230,26 @@ class TicTacToeGameTests: XCTestCase {
         
         XCTAssertEqual(inProgress, GameResult.inProgress)
     }
+    
+    func test_placeOAgainWhenPreviousMoveNotPlaced_throwsNoError() {
+        
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try? self.game.place(player: .o, at: Positions.r0c0)
+
+        XCTAssertNoThrow(try self.game.place(player: .o, at: Positions.r1c1))
+    }
+    
+    func test_placePlayerAfterGameComplete_throwsError() {
+        
+        let _ = try! self.game.place(player: .x, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .o, at: Positions.r0c2)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c1)
+        let _ = try! self.game.place(player: .x, at: Positions.r1c0)
+        let _ = try! self.game.place(player: .o, at: Positions.r2c0)
+        
+        XCTAssertThrowsError(try self.game.place(player: .x, at: Positions.r2c2)) { error in
+            XCTAssertEqual(error as! GameError, GameError.gameEnd(message: GameConstants.gameEnd))
+        }
+    }
 }

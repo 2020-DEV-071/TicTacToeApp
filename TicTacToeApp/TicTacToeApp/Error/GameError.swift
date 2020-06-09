@@ -5,4 +5,5 @@ enum GameError: Error, Equatable {
     case samePlayerPlayedAgain(message: String)
     case positionAlreadyPlayed(message: String)
     case positionOutOfRange(message: String)
+    case gameEnd(message: String)
 }

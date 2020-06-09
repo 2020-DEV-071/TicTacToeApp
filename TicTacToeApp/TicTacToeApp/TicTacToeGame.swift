@@ -4,6 +4,7 @@ struct TicTacToeGame {
     private let players = [Player.x, .o]
     private(set) var gameBoard: GameBoard = GameBoard()
     private let resultAnalyser = ResultAnalyser()
+    private var isComplete = false
     
     var numberOfPlayers: Int {
         self.players.count
@@ -17,10 +18,17 @@ struct TicTacToeGame {
     
     mutating func place(player: Player, at position: Position) throws -> GameResult {
         
+        guard !isComplete else {
+            throw GameError.gameEnd(message: GameConstants.gameEnd)
+        }
+        
         try self.gameBoard.setCurrentPlayer(player: player)
         try self.gameBoard.placePlayer(at: position)
         
-        return self.resultAnalyser.gameStatus(for: self.gameBoard)
+        let result = self.resultAnalyser.gameStatus(for: self.gameBoard)
+        self.isComplete = result != .inProgress ? true : false
+        
+        return result
     }
 }
 
