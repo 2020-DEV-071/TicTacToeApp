@@ -24,16 +24,16 @@ struct TicTacToeGame {
     }
     
     private func gameStatus() -> Bool {
-        return self.boardResult.isHorizontalRow(board: self.gameBoard)
+        return self.boardResult.isHorizontalRow(in: self.gameBoard)
     }
 }
 
 struct BoardResult: WinCriteria {
     
-    func isHorizontalRow(board: Board) -> Bool {
+    func isHorizontalRow(in gameBoard: Board) -> Bool {
         
-        for row in board.board where row.count == 3 {
-            if row.elementsEqual(board.winRow() ?? [Player.x]) {
+        for row in gameBoard.board where row.count == 3 {
+            if row.elementsEqual(gameBoard.winRow() ?? [Player.x]) {
                 return true
             }
         }
