@@ -35,7 +35,8 @@ struct ResultAnalyser: WinCriteria {
             self.containsVerticalRow(in: gameBoard.board, for: winRow) ||
             self.containsDiagonalRow(in: gameBoard.board, for: winRow)
             else {
-                return .draw
+                guard gameBoard.unfilledSquares != 0 else { return .draw }
+                return .inProgress
         }
         return .win(player: currentPlayer)
     }
