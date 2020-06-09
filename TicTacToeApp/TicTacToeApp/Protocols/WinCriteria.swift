@@ -1,5 +1,5 @@
 
 protocol WinCriteria {
     
-    func isHorizontalRow(in gameBoard: Board) -> GameResult
+    func isHorizontalRow(in gameBoard: Board) -> GameResult?
 }
