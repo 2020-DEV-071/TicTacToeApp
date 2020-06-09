@@ -1,11 +1,10 @@
 
 struct TicTacToeGame {
     
-    private(set) var gameBoard: GameBoard = GameBoard()
     private let resultAnalyser = ResultAnalyser()
-    private var isComplete = false
-    
+    private(set) var gameBoard = GameBoard()
     private(set) var player = Player.x
+    private var isGameEnd = false
     
     mutating func place(at position: Position) throws -> GameResult {
         
@@ -14,7 +13,7 @@ struct TicTacToeGame {
     
     mutating func place(player: Player, at position: Position) throws -> GameResult {
         
-        guard !isComplete else {
+        guard !isGameEnd else {
             throw GameError.gameEnd(message: GameConstants.gameEnd)
         }
         
@@ -23,14 +22,16 @@ struct TicTacToeGame {
         
         let result = self.moveResult()
         self.swapPlayer()
-        
         return result
     }
+}
+
+extension TicTacToeGame {
     
     mutating private func moveResult() -> GameResult {
         
         let result = self.resultAnalyser.gameStatus(for: self.gameBoard)
-        self.isComplete = result != .inProgress ? true : false
+        self.isGameEnd = result != .inProgress ? true : false
         return result
     }
     

@@ -1,7 +1,10 @@
 
 struct GameBoard: Board {
+        
+    private static let rows = 3
+    private static let coloumns = 3
     
-    private(set) var board = Matrix2D(repeating: [Player?](repeating: nil, count: 3), count: 3)
+    private(set) var board = Matrix2D(repeating: [Player?](repeating: nil, count: GameBoard.rows), count: GameBoard.coloumns)
     private(set) var currentPlayer: Player?
     private var lastPlacedPlayer: Player?
     
@@ -20,11 +23,14 @@ struct GameBoard: Board {
     
     func player(at position: Position) throws -> Player? {
         
-        guard self.board.indices.contains(position.row),
-            self.board[position.row].indices.contains(position.coloumn) else {
-                throw GameError.positionOutOfRange(message: GameConstants.invalidPosition)
+        func validateRange() throws {
+            guard self.board.indices.contains(position.row),
+                self.board[position.row].indices.contains(position.coloumn) else {
+                    throw GameError.positionOutOfRange(message: GameConstants.invalidPosition)
+            }
         }
         
+        try validateRange()
         return self.board[position.row][position.coloumn]
     }
     
