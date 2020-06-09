@@ -35,4 +35,12 @@ class ViewControllerTests: XCTestCase {
         let sectionsCount = self.gameViewController.collectionView.numberOfSections
         XCTAssertEqual(sectionsCount, 3)
     }
+    
+    func test_numberOfItemsInCollectionViewSections_returns3() {
+        
+        for section in 0...2 {
+            let rowsCount = self.gameViewController.collectionView.numberOfItems(inSection: section)
+            XCTAssertEqual(rowsCount, 3)
+        }
+    }
 }
