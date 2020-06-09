@@ -134,9 +134,9 @@ class TicTacToeGameTests: XCTestCase {
         let _ = try! self.game.place(player: .o, at: Positions.r1c0)
         let _ = try! self.game.place(player: .x, at: Positions.r0c1)
         let _ = try! self.game.place(player: .o, at: Positions.r1c1)
-        let winResult = try! self.game.place(player: .x, at: Positions.r0c2)
+        let winX = try! self.game.place(player: .x, at: Positions.r0c2)
         
-        XCTAssertEqual(winResult, GameResult.win(player: .x))
+        XCTAssertEqual(winX, GameResult.win(player: .x))
     }
     
     func test_placeOInHorizontalRow_returnsWinO() {
@@ -146,9 +146,9 @@ class TicTacToeGameTests: XCTestCase {
         let _ = try! self.game.place(player: .x, at: Positions.r1c1)
         let _ = try! self.game.place(player: .o, at: Positions.r0c1)
         let _ = try! self.game.place(player: .x, at: Positions.r2c2)
-        let winResult = try! self.game.place(player: .o, at: Positions.r0c2)
+        let winO = try! self.game.place(player: .o, at: Positions.r0c2)
         
-        XCTAssertEqual(winResult, GameResult.win(player: .o))
+        XCTAssertEqual(winO, GameResult.win(player: .o))
     }
     
     func test_placeXInVerticalRow_returnsWinX() {
@@ -157,20 +157,20 @@ class TicTacToeGameTests: XCTestCase {
         let _ = try! self.game.place(player: .o, at: Positions.r0c1)
         let _ = try! self.game.place(player: .x, at: Positions.r1c0)
         let _ = try! self.game.place(player: .o, at: Positions.r1c1)
-        let winResult = try! self.game.place(player: .x, at: Positions.r2c0)
+        let winX = try! self.game.place(player: .x, at: Positions.r2c0)
         
-        XCTAssertEqual(winResult, GameResult.win(player: .x))
+        XCTAssertEqual(winX, GameResult.win(player: .x))
     }
     
     func test_placeOInVerticalRow_returnsWinO() {
-           
-           let _ = try! self.game.place(player: .x, at: Positions.r0c1)
-           let _ = try! self.game.place(player: .o, at: Positions.r0c0)
-           let _ = try! self.game.place(player: .x, at: Positions.r0c2)
-           let _ = try! self.game.place(player: .o, at: Positions.r1c0)
-           let _ = try! self.game.place(player: .x, at: Positions.r2c1)
-           let winResult = try! self.game.place(player: .o, at: Positions.r2c0)
-
-           XCTAssertEqual(winResult, GameResult.win(player: .o))
-       }
+        
+        let _ = try! self.game.place(player: .x, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .o, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c2)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r2c1)
+        let winO = try! self.game.place(player: .o, at: Positions.r2c0)
+        
+        XCTAssertEqual(winO, GameResult.win(player: .o))
+    }
 }
