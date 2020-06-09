@@ -184,4 +184,16 @@ class TicTacToeGameTests: XCTestCase {
         
         XCTAssertEqual(winX, GameResult.win(player: .x))
     }
+    
+    func test_placeOLeftDiagonallyInRow_returnsWinO() {
+        
+        let _ = try! self.game.place(player: .x, at: Positions.r0c1)
+        let _ = try! self.game.place(player: .o, at: Positions.r0c0)
+        let _ = try! self.game.place(player: .x, at: Positions.r0c2)
+        let _ = try! self.game.place(player: .o, at: Positions.r1c1)
+        let _ = try! self.game.place(player: .x, at: Positions.r2c1)
+        let winO = try! self.game.place(player: .o, at: Positions.r2c2)
+        
+        XCTAssertEqual(winO, GameResult.win(player: .o))
+    }
 }
