@@ -36,7 +36,16 @@ struct GameBoard: Board {
     
     mutating func setCurrentPlayer(player: Player) throws {
         
-        try self.validateIfFirst(player: player)
+        func validateIfFirst() throws {
+            
+            if self.unfilledSquares == GameBoard.rows * GameBoard.coloumns  {
+                guard player == .x else {
+                    throw GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer)
+                }
+            }
+        }
+        
+        try validateIfFirst()
         
         guard player != self.lastPlacedPlayer else {
             throw GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedTwice)
@@ -55,12 +64,4 @@ struct GameBoard: Board {
         self.lastPlacedPlayer = self.currentPlayer
     }
     
-    private func validateIfFirst(player: Player) throws {
-        
-        if self.unfilledSquares == 9  {
-            guard player == .x else {
-                throw GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer)
-            }
-        }
-    }
 }
