@@ -3,7 +3,7 @@ struct TicTacToeGame {
     
     private let players = [Player.x, .o]
     private(set) var gameBoard: GameBoard = GameBoard()
-    private let boardResult = BoardResult()
+    private let resultAnalyser = ResultAnalyser()
     
     var numberOfPlayers: Int {
         self.players.count
@@ -20,11 +20,11 @@ struct TicTacToeGame {
         try self.gameBoard.setCurrentPlayer(player: player)
         try self.gameBoard.placePlayer(at: position)
         
-        return self.boardResult.gameStatus(for: self.gameBoard)
+        return self.resultAnalyser.gameStatus(for: self.gameBoard)
     }
 }
 
-struct BoardResult: WinCriteria {
+struct ResultAnalyser: WinCriteria {
     
     func gameStatus(for gameBoard: Board) -> GameResult {
         
