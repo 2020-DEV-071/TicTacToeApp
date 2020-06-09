@@ -4,10 +4,9 @@ import XCTest
 
 class ViewControllerTests: XCTestCase {
     
-    var gameViewController: ViewController!
+    var gameViewController: GameViewController!
     
     override func setUp() {
-        
         super.setUp()
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -29,6 +28,6 @@ class ViewControllerTests: XCTestCase {
     func test_collectionViewDataSourceIsNotNil_afterViewDidLoad() {
         
         self.gameViewController.loadViewIfNeeded()
-        XCTAssertTrue(self.gameViewController.collectionView.dataSource is ViewController)
+        XCTAssertTrue(self.gameViewController.collectionView.dataSource is GameViewController)
     }
 }

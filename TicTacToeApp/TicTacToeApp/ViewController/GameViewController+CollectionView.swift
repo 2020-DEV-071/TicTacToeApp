@@ -1,17 +1,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var statusLabel: UILabel!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-}
-
-extension ViewController: UICollectionViewDataSource {
+extension GameViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
@@ -25,7 +15,6 @@ extension ViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DEFAULT_CELL", for: indexPath)
         cell.contentView.backgroundColor = .blue
-        
         
         return cell
     }
