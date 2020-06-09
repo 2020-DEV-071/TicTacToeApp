@@ -65,10 +65,27 @@ struct ResultAnalyser: WinCriteria {
         
         var diagonal = [Player?]()
         
-        for (n, x) in gameBoard.enumerated() {
-            diagonal.append(x[n])
+        func containsLeftDiagonal() -> Bool {
+            for (n, x) in gameBoard.enumerated() {
+                diagonal.append(x[n])
+            }
+            guard diagonal.elementsEqual(winRow) else { return false }
+            return true
         }
-        guard diagonal.elementsEqual(winRow) else { return false }
+        
+        func containsRightDiagonal() -> Bool {
+            diagonal.removeAll()
+            for (n, x) in gameBoard.reversed().enumerated() {
+                diagonal.append(x[n])
+            }
+            guard diagonal.elementsEqual(winRow) else { return false }
+            return true
+        }
+        
+        guard containsLeftDiagonal() ||
+            containsRightDiagonal()
+            else { return false }
+        
         return true
     }
 
