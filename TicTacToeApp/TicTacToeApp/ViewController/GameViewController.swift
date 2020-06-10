@@ -17,18 +17,18 @@ class GameViewController: UIViewController {
 extension GameViewController: ViewPresenter {
     
     func playerPlaced(with message: String) {
-        
+        self.statusLabel.text = message
     }
     
     func win(with message: String) {
-        
+        self.statusLabel.text = message
     }
     
     func gameDraw(with message: String) {
-        
+        self.statusLabel.text = message
     }
     
     func error(with message: String) {
-        
+        self.statusLabel.text = message
     }
 }

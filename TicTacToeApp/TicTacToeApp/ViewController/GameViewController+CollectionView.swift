@@ -14,8 +14,13 @@ extension GameViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DEFAULT_CELL", for: indexPath)
-        cell.contentView.backgroundColor = .blue
         
+        guard let player = self.viewPresenter?.player(at: indexPath) else {
+            cell.contentView.backgroundColor = .gray
+            return cell
+        }
+        let playerColor: UIColor = player == .x ? .blue : .orange
+        cell.contentView.backgroundColor = playerColor
         return cell
     }
 }
@@ -23,6 +28,9 @@ extension GameViewController: UICollectionViewDataSource {
 extension GameViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        self.viewPresenter?.didSelect(at: indexPath)
+        self.collectionView.reloadItems(at: [indexPath])
         
         print(indexPath)
     }

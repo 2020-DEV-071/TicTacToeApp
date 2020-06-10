@@ -28,6 +28,13 @@ class GameViewPresenter {
             self.logError(with: error)
         }
     }
+    
+    func player(at indexPath: IndexPath) -> Player? {
+
+        let position = Position(row: indexPath.row, coloumn: indexPath.section)
+        let player = try? self.game.gameBoard.player(at: position)
+        return player
+    }
 }
 
 extension GameViewPresenter {
