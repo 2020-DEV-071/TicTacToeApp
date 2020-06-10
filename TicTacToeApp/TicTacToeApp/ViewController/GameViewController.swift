@@ -20,6 +20,10 @@ extension GameViewController: ViewPresenter {
         
     }
     
+    func win(with message: String) {
+        
+    }
+    
     func gameEnd(with message: String) {
         
     }
