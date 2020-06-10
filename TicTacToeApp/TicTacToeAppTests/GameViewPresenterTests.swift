@@ -4,8 +4,8 @@ import XCTest
 
 protocol ViewExpecatations {
     
-    var inProgress: XCTestExpectation { get }
-    var draw: XCTestExpectation{ get }
+    var didCallGameInProgress: XCTestExpectation { get }
+    var didCallDraw: XCTestExpectation { get }
 }
 
 class GameViewControllerMock: ViewPresenter {
@@ -17,18 +17,18 @@ class GameViewControllerMock: ViewPresenter {
     }
     
     func playerPlaced(with message: String) {
-        self.expecatation.inProgress.fulfill()
+        self.expecatation.didCallGameInProgress.fulfill()
     }
     
     func gameEnd(with message: String) {
-        self.expecatation.draw.fulfill()
+        self.expecatation.didCallDraw.fulfill()
     }
 }
 
 struct BindExpecatations: ViewExpecatations {
     
-    var inProgress = XCTestExpectation()
-    var draw = XCTestExpectation()
+    var didCallGameInProgress = XCTestExpectation()
+    var didCallDraw = XCTestExpectation()
 }
 
 enum IndexPaths {
@@ -48,34 +48,30 @@ enum IndexPaths {
     static let r100c100 = Position(row: 100, coloumn: 100)
 }
 
-
-
 class GameViewPresenterTests: XCTestCase {
     
     var presenter: GameViewPresenter!
-    let expec = BindExpecatations()
+    var expec: BindExpecatations!
     
     override func setUp() {
         super.setUp()
-        
-        self.presenter = GameViewPresenter(with: GameViewControllerMock(with: expec))
-        
+        self.expec = BindExpecatations()
+        self.presenter = GameViewPresenter(with: GameViewControllerMock(with: self.expec))
     }
     
     override func tearDown() {
+        self.expec = nil
         self.presenter = nil
         super.tearDown()
     }
     
-    func test_didSelectItem_returnsGameStatus() {
+    func test_didSelectFirstItem_returnsGameStatus() {
         
-        
-        let indexPath = IndexPath(row: 1, section: 1)
-        self.presenter.didSelect(at: indexPath)
-        self.wait(for: [expec.inProgress], timeout: 2)
+        self.presenter.didSelect(at: IndexPaths.r1c1)
+        self.wait(for: [expec.didCallGameInProgress], timeout: 2)
     }
     
-    func test_didSelectItemPlaceAllSquares_returnsGameDraw() {
+    func test_didSelectAllItemsFillAllSquares_returnsGameDraw() {
         
         self.presenter.didSelect(at: IndexPaths.r0c0)
         self.presenter.didSelect(at: IndexPaths.r1c0)
@@ -87,6 +83,8 @@ class GameViewPresenterTests: XCTestCase {
         self.presenter.didSelect(at: IndexPaths.r2c2)
         self.presenter.didSelect(at: IndexPaths.r2c1)
         
-        self.wait(for: [expec.draw], timeout: 2)
+        self.wait(for: [expec.didCallDraw], timeout: 2)
     }
+    
+
 }
