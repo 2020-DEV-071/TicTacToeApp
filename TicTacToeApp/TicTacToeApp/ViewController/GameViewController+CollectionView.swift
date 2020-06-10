@@ -3,6 +3,8 @@ import UIKit
 
 extension GameViewController: UICollectionViewDataSource {
     
+    private static let cellIdentifier = "DEFAULT_CELL"
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
     }
@@ -13,7 +15,7 @@ extension GameViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DEFAULT_CELL", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameViewController.cellIdentifier, for: indexPath)
         
         guard let player = self.viewPresenter?.player(at: indexPath) else {
             cell.contentView.backgroundColor = .gray
@@ -28,11 +30,9 @@ extension GameViewController: UICollectionViewDataSource {
 extension GameViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        
         self.viewPresenter?.didSelect(at: indexPath)
         self.collectionView.reloadItems(at: [indexPath])
-        
-        print(indexPath)
     }
 }
 

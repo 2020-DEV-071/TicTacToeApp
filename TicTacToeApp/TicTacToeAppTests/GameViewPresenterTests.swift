@@ -117,4 +117,12 @@ class GameViewPresenterTests: XCTestCase {
         
         self.wait(for: [self.expec.didCallError], timeout: 2)
     }
+    
+    func test_playerAtPosition_returnsPlacedPlayer() {
+        
+        self.presenter.didSelect(at: IndexPaths.r1c1)
+        let player = self.presenter.player(at: IndexPaths.r1c1)
+        
+        XCTAssertEqual(player, Player.x)
+    }
 }
