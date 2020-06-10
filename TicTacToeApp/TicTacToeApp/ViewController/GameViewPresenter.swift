@@ -21,28 +21,38 @@ class GameViewPresenter {
     func didSelect(at indexPath: IndexPath) {
         
         let position = Position(row: indexPath.row, coloumn: indexPath.section)
-        
         do {
             let result = try self.game.place(at: position)
-            
-            switch result {
-            case .inProgress:
-                self.delegate.playerPlaced(with: "In progress")
-            case .draw:
-                self.delegate.gameDraw(with: "Game Draw")
-            case .win(let player):
-                self.delegate.win(with: "Win!! \(player)")
-            }
+            showResult(with: result)
         } catch { 
-            if let error = error as? GameError {
-                switch error {
-                case .gameEnd(let message),
-                     .playerXShouldMoveFirst(let message),
-                     .positionAlreadyPlayed(let message),
-                     .samePlayerPlayedAgain(let message),
-                     .positionOutOfRange(let message):
-                    self.delegate.error(with: message)
-                }
+            self.logError(with: error)
+        }
+    }
+}
+
+extension GameViewPresenter {
+    
+    private func showResult(with result: GameResult) {
+        switch result {
+        case .inProgress:
+            self.delegate.playerPlaced(with: "In progress")
+        case .draw:
+            self.delegate.gameDraw(with: "Game Draw")
+        case .win(let player):
+            self.delegate.win(with: "Win!! \(player)")
+        }
+    }
+    
+    private func logError(with error: Error) {
+        if let error = error as? GameError {
+            
+            switch error {
+            case .gameEnd(let message),
+                 .playerXShouldMoveFirst(let message),
+                 .positionAlreadyPlayed(let message),
+                 .samePlayerPlayedAgain(let message),
+                 .positionOutOfRange(let message):
+                self.delegate.error(with: message)
             }
         }
     }
