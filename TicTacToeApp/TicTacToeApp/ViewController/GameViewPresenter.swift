@@ -6,6 +6,7 @@ protocol ViewPresenter {
     func playerPlaced(with message: String)
     func gameDraw(with message: String)
     func win(with message: String)
+    func error(with message: String)
 }
 
 class GameViewPresenter {
@@ -32,8 +33,17 @@ class GameViewPresenter {
             case .win(let player):
                 self.delegate.win(with: "Win!! \(player)")
             }
-        } catch {
-            print(error)
+        } catch { 
+            if let error = error as? GameError {
+                switch error {
+                case .gameEnd(let message),
+                     .playerXShouldMoveFirst(let message),
+                     .positionAlreadyPlayed(let message),
+                     .samePlayerPlayedAgain(let message),
+                     .positionOutOfRange(let message):
+                    self.delegate.error(with: message)
+                }
+            }
         }
     }
 }

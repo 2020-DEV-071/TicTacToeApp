@@ -27,4 +27,8 @@ extension GameViewController: ViewPresenter {
     func gameDraw(with message: String) {
         
     }
+    
+    func error(with message: String) {
+        
+    }
 }

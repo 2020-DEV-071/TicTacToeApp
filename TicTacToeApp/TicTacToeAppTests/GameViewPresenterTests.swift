@@ -7,10 +7,11 @@ protocol ViewExpecatations {
     var didCallGameInProgress: XCTestExpectation { get }
     var didCallDraw: XCTestExpectation { get }
     var didCallWin: XCTestExpectation { get }
+    var didCallError: XCTestExpectation { get }
 }
 
 class GameViewControllerMock: ViewPresenter {
-
+    
     var expecatation: ViewExpecatations!
     
     init(with expecatation: ViewExpecatations) {
@@ -28,6 +29,10 @@ class GameViewControllerMock: ViewPresenter {
     func win(with message: String) {
         self.expecatation.didCallWin.fulfill()
     }
+    
+    func error(with message: String) {
+        self.expecatation.didCallError.fulfill()
+    }
 }
 
 struct BindExpecatations: ViewExpecatations {
@@ -35,6 +40,7 @@ struct BindExpecatations: ViewExpecatations {
     var didCallGameInProgress = XCTestExpectation()
     var didCallDraw = XCTestExpectation()
     var didCallWin = XCTestExpectation()
+    var didCallError = XCTestExpectation()
 }
 
 enum IndexPaths {
@@ -101,5 +107,14 @@ class GameViewPresenterTests: XCTestCase {
         self.presenter.didSelect(at: IndexPaths.r0c2)
         
         self.wait(for: [self.expec.didCallWin], timeout: 2)
+    }
+    
+    
+    func test_didSelectItemPreviouslySelected_returnsErrorMessage() {
+        
+        self.presenter.didSelect(at: IndexPaths.r1c1)
+        self.presenter.didSelect(at: IndexPaths.r1c1)
+        
+        self.wait(for: [self.expec.didCallError], timeout: 2)
     }
 }
