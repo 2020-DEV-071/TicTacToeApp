@@ -5,7 +5,7 @@ import XCTest
 class GameViewControllerMock: ViewPresenter {
     
     var expecatation: XCTestExpectation!
-
+    
     init(with expecatation: XCTestExpectation) {
         self.expecatation = expecatation
     }

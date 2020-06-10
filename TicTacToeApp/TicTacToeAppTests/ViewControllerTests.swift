@@ -53,10 +53,10 @@ class ViewControllerTests: XCTestCase {
         XCTAssertNotNil(cell)
     }
     
-    func test_viewControllerPresenter_isGameViewPresenterType() {
+    func test_viewControllerPresenter_isNotNil() {
         
         let presenter = self.gameViewController.viewPresenter
-        XCTAssertTrue(presenter is GameViewPresenter)
+        XCTAssertNotNil(presenter)
     }
 }
 

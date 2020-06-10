@@ -29,7 +29,7 @@ class GameViewPresenter {
                 self.delegate.moveResult(message: "")
             }
         } catch {
-           print(error)
+            print(error)
         }
     }
 }
