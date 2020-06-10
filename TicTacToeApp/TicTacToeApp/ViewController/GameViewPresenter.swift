@@ -3,7 +3,8 @@ import Foundation
 
 protocol ViewPresenter {
     
-    func moveResult(message: String)
+    func playerPlaced(with message: String)
+    func gameEnd(with message: String)
 }
 
 class GameViewPresenter {
@@ -24,9 +25,11 @@ class GameViewPresenter {
             
             switch result {
             case .inProgress:
-                self.delegate.moveResult(message: "Playing")
+                self.delegate.playerPlaced(with: "In progress")
+            case .draw:
+                self.delegate.gameEnd(with: "Game Draw")
             default:
-                self.delegate.moveResult(message: "")
+                self.delegate.gameEnd(with: "")
             }
         } catch {
             print(error)

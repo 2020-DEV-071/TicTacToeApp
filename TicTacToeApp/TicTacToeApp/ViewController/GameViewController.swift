@@ -16,7 +16,11 @@ class GameViewController: UIViewController {
 
 extension GameViewController: ViewPresenter {
     
-    func moveResult(message: String) {
+    func playerPlaced(with message: String) {
+        
+    }
+    
+    func gameEnd(with message: String) {
         
     }
 }
