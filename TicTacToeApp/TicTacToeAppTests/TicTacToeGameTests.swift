@@ -2,23 +2,6 @@
 import XCTest
 @testable import TicTacToeApp
 
-enum Positions {
-    
-    static let r0c0 = Position(row: 0, coloumn: 0)
-    static let r0c1 = Position(row: 0, coloumn: 1)
-    static let r0c2 = Position(row: 0, coloumn: 2)
-    
-    static let r1c0 = Position(row: 1, coloumn: 0)
-    static let r1c1 = Position(row: 1, coloumn: 1)
-    static let r1c2 = Position(row: 1, coloumn: 2)
-    
-    static let r2c0 = Position(row: 2, coloumn: 0)
-    static let r2c1 = Position(row: 2, coloumn: 1)
-    static let r2c2 = Position(row: 2, coloumn: 2)
-    
-    static let r100c100 = Position(row: 100, coloumn: 100)
-}
-
 class TicTacToeGameTests: XCTestCase {
     
     var game: TicTacToeGame!
@@ -260,4 +243,21 @@ class TicTacToeGameTests: XCTestCase {
         let playerX = try! self.game.gameBoard.player(at: Positions.r0c0)
         XCTAssertEqual(playerX, Player.x)
     }
+}
+
+enum Positions {
+    
+    static let r0c0 = Position(row: 0, coloumn: 0)
+    static let r0c1 = Position(row: 0, coloumn: 1)
+    static let r0c2 = Position(row: 0, coloumn: 2)
+    
+    static let r1c0 = Position(row: 1, coloumn: 0)
+    static let r1c1 = Position(row: 1, coloumn: 1)
+    static let r1c2 = Position(row: 1, coloumn: 2)
+    
+    static let r2c0 = Position(row: 2, coloumn: 0)
+    static let r2c1 = Position(row: 2, coloumn: 1)
+    static let r2c2 = Position(row: 2, coloumn: 2)
+    
+    static let r100c100 = Position(row: 100, coloumn: 100)
 }

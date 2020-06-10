@@ -66,8 +66,9 @@ class ViewControllerTests: XCTestCase {
     
     func test_selectCollectionViewItem_showStatusOnLabel() {
         
-        self.gameViewController.collectionView.selectItem(at: IndexPaths.r0c0, animated: false, scrollPosition: .centeredVertically)
-        self.gameViewController.collectionView(self.gameViewController.collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
+        let collectionView = self.gameViewController.collectionView!
+        collectionView.selectItem(at: IndexPaths.r0c0, animated: false, scrollPosition: .centeredVertically)
+        self.gameViewController.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
         
         XCTAssertEqual(self.gameViewController.statusLabel.text!, "In progress")
     }

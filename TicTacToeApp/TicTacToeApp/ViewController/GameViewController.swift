@@ -3,8 +3,8 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet private(set) weak var collectionView: UICollectionView!
+    @IBOutlet private(set) weak var statusLabel: UILabel!
     
     private(set) var viewPresenter: GameViewPresenter?
     
