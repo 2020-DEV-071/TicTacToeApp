@@ -30,6 +30,11 @@ class ViewControllerTests: XCTestCase {
         XCTAssertTrue(self.gameViewController.collectionView.dataSource is GameViewController)
     }
     
+    func test_collectionViewDelegateIsNotNil_afterViewDidLoad() {
+        
+        XCTAssertTrue(self.gameViewController.collectionView.delegate is GameViewController)
+    }
+    
     func test_numberOfSectionsInCollectionview_returns3() {
         
         let sectionsCount = self.gameViewController.collectionView.numberOfSections
@@ -58,5 +63,12 @@ class ViewControllerTests: XCTestCase {
         let presenter = self.gameViewController.viewPresenter
         XCTAssertNotNil(presenter)
     }
+    
+    func test_selectCollectionViewItem_showStatusOnLabel() {
+        
+        self.gameViewController.collectionView.selectItem(at: IndexPaths.r0c0, animated: false, scrollPosition: .centeredVertically)
+        self.gameViewController.collectionView(self.gameViewController.collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
+        
+        XCTAssertEqual(self.gameViewController.statusLabel.text!, "In progress")
+    }
 }
-
