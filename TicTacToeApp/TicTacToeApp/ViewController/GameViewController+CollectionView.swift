@@ -19,3 +19,23 @@ extension GameViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+extension GameViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print(indexPath)
+    }
+}
+
+extension GameViewController : UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        return CGSize(width: 110, height: 110)
+    }
+}
+
