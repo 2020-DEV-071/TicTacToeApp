@@ -63,5 +63,4 @@ struct GameBoard: Board {
         self.board[position.row][position.coloumn] = self.currentPlayer
         self.lastPlacedPlayer = self.currentPlayer
     }
-    
 }

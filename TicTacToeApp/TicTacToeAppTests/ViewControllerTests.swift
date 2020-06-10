@@ -43,4 +43,13 @@ class ViewControllerTests: XCTestCase {
             XCTAssertEqual(rowsCount, 3)
         }
     }
+    
+    func test_cellForItemAtIndexPath_returnsCell() {
+        
+        self.gameViewController.collectionView.reloadData()
+        let indexPath = IndexPath(row: 1, section: 0)
+        let cell = self.gameViewController.collectionView.dequeueReusableCell(withReuseIdentifier: "DEFAULT_CELL", for: indexPath)
+        
+        XCTAssertNotNil(cell)
+    }
 }
