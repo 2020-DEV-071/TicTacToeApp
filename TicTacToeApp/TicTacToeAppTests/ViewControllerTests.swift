@@ -59,3 +59,4 @@ class ViewControllerTests: XCTestCase {
         XCTAssertTrue(presenter is GameViewPresenter)
     }
 }
+
