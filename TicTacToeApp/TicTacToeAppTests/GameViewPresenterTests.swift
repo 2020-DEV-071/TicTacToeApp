@@ -21,7 +21,7 @@ class GameViewControllerMock: ViewPresenter {
         self.expecatation.didCallGameInProgress.fulfill()
     }
     
-    func gameEnd(with message: String) {
+    func gameDraw(with message: String) {
         self.expecatation.didCallDraw.fulfill()
     }
     
