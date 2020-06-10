@@ -4,94 +4,110 @@ import XCTest
 
 class ViewControllerTests: XCTestCase {
     
-    var gameViewController: GameViewController!
+    var gameVC: GameViewController!
     
     override func setUp() {
         super.setUp()
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        self.gameViewController = storyboard.instantiateViewController(identifier: "ViewController")
-        self.gameViewController.loadViewIfNeeded()
+        self.loadViewControllerFromStoryboard()
     }
     
     override func tearDown() {
-        
-        self.gameViewController = nil
+        self.gameVC = nil
         super.tearDown()
     }
     
     func test_collectionViewIsNotNil_afterViewDidLoad() {
         
-        XCTAssertNotNil(self.gameViewController.collectionView)
+        XCTAssertNotNil(self.gameVC.collectionView)
     }
     
-    func test_collectionViewDataSourceIsNotNil_afterViewDidLoad() {
+    func test_collectionViewDataSourceIsSet_afterViewDidLoad() {
         
-        XCTAssertTrue(self.gameViewController.collectionView.dataSource is GameViewController)
+        XCTAssertTrue(self.gameVC.collectionView.dataSource is GameViewController)
     }
     
-    func test_collectionViewDelegateIsNotNil_afterViewDidLoad() {
+    func test_collectionViewDelegateIsSet_afterViewDidLoad() {
         
-        XCTAssertTrue(self.gameViewController.collectionView.delegate is GameViewController)
+        XCTAssertTrue(self.gameVC.collectionView.delegate is GameViewController)
     }
     
     func test_numberOfSectionsInCollectionview_returns3() {
         
-        let sectionsCount = self.gameViewController.collectionView.numberOfSections
+        let sectionsCount = self.gameVC.collectionView.numberOfSections
         XCTAssertEqual(sectionsCount, 3)
     }
     
     func test_numberOfItemsInCollectionViewSections_returns3() {
         
-        for section in 0...2 {
-            let rowsCount = self.gameViewController.collectionView.numberOfItems(inSection: section)
+        for section in 0..<self.gameVC.collectionView.numberOfSections {
+            let rowsCount = self.gameVC.collectionView.numberOfItems(inSection: section)
             XCTAssertEqual(rowsCount, 3)
         }
     }
     
     func test_cellForItemAtIndexPath_returnsCell() {
         
-        self.gameViewController.collectionView.reloadData()
         let indexPath = IndexPath(row: 1, section: 0)
-        let cell = self.gameViewController.collectionView.dequeueReusableCell(withReuseIdentifier: "DEFAULT_CELL", for: indexPath)
         
-        XCTAssertNotNil(cell)
+        let cell2 = self.gameVC.collectionView(self.gameVC.collectionView,
+                                               cellForItemAt: indexPath)
+        
+        XCTAssertNotNil(cell2)
     }
     
     func test_viewControllerPresenter_isNotNil() {
         
-        let presenter = self.gameViewController.viewPresenter
+        let presenter = self.gameVC.viewPresenter
         XCTAssertNotNil(presenter)
     }
     
     func test_selectCollectionViewItem_setStatusInProgress() {
         
-        let collectionView = self.gameViewController.collectionView!
-        collectionView.selectItem(at: IndexPaths.r0c0, animated: false, scrollPosition: .centeredVertically)
-        self.gameViewController.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
+        let collectionView = self.gameVC.collectionView!
         
-        XCTAssertEqual(self.gameViewController.statusLabel.text!, "In progress")
+        collectionView.selectItem(at: IndexPaths.r0c0,
+                                  animated: false,
+                                  scrollPosition: .centeredVertically)
+        
+        self.gameVC.collectionView(collectionView,
+                                   didSelectItemAt: IndexPaths.r0c0)
+        
+        XCTAssertEqual(self.gameVC.statusLabel.text!, "In progress")
     }
     
     func test_selectCollectionViewAllItems_setStatusDraw() {
         
-        let collectionView = self.gameViewController.collectionView!
+        let collectionView = self.gameVC.collectionView!
         
-        let indexPaths = [IndexPaths.r0c0,
-                          IndexPaths.r1c0,
-                          IndexPaths.r2c0,
-                          IndexPaths.r0c1,
-                          IndexPaths.r0c2,
-                          IndexPaths.r1c1,
-                          IndexPaths.r1c2,
-                          IndexPaths.r2c2,
-                          IndexPaths.r2c1]
+        let drawIndexPaths = [IndexPaths.r0c0,
+                              IndexPaths.r1c0,
+                              IndexPaths.r2c0,
+                              IndexPaths.r0c1,
+                              IndexPaths.r0c2,
+                              IndexPaths.r1c1,
+                              IndexPaths.r1c2,
+                              IndexPaths.r2c2,
+                              IndexPaths.r2c1]
         
-        indexPaths.forEach {
-            collectionView.selectItem(at: $0, animated: false, scrollPosition: .centeredVertically)
-            self.gameViewController.collectionView(collectionView, didSelectItemAt: $0)
+        drawIndexPaths.forEach {
+            collectionView.selectItem(at: $0,
+                                      animated: false,
+                                      scrollPosition: .centeredVertically)
+            
+            self.gameVC.collectionView(collectionView,
+                                       didSelectItemAt: $0)
         }
         
-        XCTAssertEqual(self.gameViewController.statusLabel.text!, "Game Draw")
+        XCTAssertEqual(self.gameVC.statusLabel.text!, "Game Draw")
+    }
+}
+
+extension ViewControllerTests {
+    
+    private func loadViewControllerFromStoryboard() {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.gameVC = storyboard.instantiateViewController(identifier: "ViewController")
+        self.gameVC.loadViewIfNeeded()
     }
 }

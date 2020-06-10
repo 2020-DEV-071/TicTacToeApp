@@ -5,11 +5,11 @@ import XCTest
 class GameViewPresenterTests: XCTestCase {
     
     var presenter: GameViewPresenter!
-    var expec: BindExpecatations!
+    var expec: GameExpecatations!
     
     override func setUp() {
         super.setUp()
-        self.expec = BindExpecatations()
+        self.expec = GameExpecatations()
         self.presenter = GameViewPresenter(with: GameViewControllerMock(with: self.expec))
     }
     
@@ -22,42 +22,48 @@ class GameViewPresenterTests: XCTestCase {
     func test_didSelectFirstItem_returnsGameStatus() {
         
         self.presenter.didSelect(at: IndexPaths.r1c1)
-        self.wait(for: [expec.didCallGameInProgress], timeout: 2)
+        
+        XCTAssertTrue(expec.didCallGameInProgress)
     }
     
-    func test_didSelectAllItems_returnsGameDraw() {
+    func test_didSelectAllItems_callsGameDraw() {
         
-        self.presenter.didSelect(at: IndexPaths.r0c0)
-        self.presenter.didSelect(at: IndexPaths.r1c0)
-        self.presenter.didSelect(at: IndexPaths.r2c0)
-        self.presenter.didSelect(at: IndexPaths.r0c1)
-        self.presenter.didSelect(at: IndexPaths.r0c2)
-        self.presenter.didSelect(at: IndexPaths.r1c1)
-        self.presenter.didSelect(at: IndexPaths.r1c2)
-        self.presenter.didSelect(at: IndexPaths.r2c2)
-        self.presenter.didSelect(at: IndexPaths.r2c1)
+        let allItems = [IndexPaths.r0c0,
+                        IndexPaths.r1c0,
+                        IndexPaths.r2c0,
+                        IndexPaths.r0c1,
+                        IndexPaths.r0c2,
+                        IndexPaths.r1c1,
+                        IndexPaths.r1c2,
+                        IndexPaths.r2c2,
+                        IndexPaths.r2c1]
         
-        self.wait(for: [expec.didCallDraw], timeout: 2)
+        self.selectItem(at: allItems)
+        
+        XCTAssertTrue(expec.didCallDraw)
     }
     
-    func test_didSelectItemsPlacePlayerToWin_returnsWin() {
+    func test_didSelectItemsPlacePlayerToWin_callsWin() {
         
-        self.presenter.didSelect(at: IndexPaths.r0c0)
-        self.presenter.didSelect(at: IndexPaths.r1c0)
-        self.presenter.didSelect(at: IndexPaths.r0c1)
-        self.presenter.didSelect(at: IndexPaths.r1c1)
-        self.presenter.didSelect(at: IndexPaths.r0c2)
+        let winItems = [IndexPaths.r0c0,
+                        IndexPaths.r1c0,
+                        IndexPaths.r0c1,
+                        IndexPaths.r1c1,
+                        IndexPaths.r0c2]
         
-        self.wait(for: [self.expec.didCallWin], timeout: 2)
+        self.selectItem(at: winItems)
+        
+        XCTAssertTrue(expec.didCallWin)
     }
     
     
-    func test_didSelectItemPreviouslySelected_returnsErrorMessage() {
+    func test_didSelectPreviouslySelectedItem_callsError() {
         
-        self.presenter.didSelect(at: IndexPaths.r1c1)
-        self.presenter.didSelect(at: IndexPaths.r1c1)
+        let sameItems = [IndexPaths.r1c1, IndexPaths.r1c1]
         
-        self.wait(for: [self.expec.didCallError], timeout: 2)
+        self.selectItem(at: sameItems)
+        
+        XCTAssertTrue(expec.didCallError)
     }
     
     func test_playerAtPosition_returnsPlacedPlayer() {
@@ -69,45 +75,55 @@ class GameViewPresenterTests: XCTestCase {
     }
 }
 
-protocol ViewExpecatations {
+extension GameViewPresenterTests {
     
-    var didCallGameInProgress: XCTestExpectation { get }
-    var didCallDraw: XCTestExpectation { get }
-    var didCallWin: XCTestExpectation { get }
-    var didCallError: XCTestExpectation { get }
+    private func selectItem(at positions: [IndexPath]) {
+        
+        positions.forEach {
+            self.presenter.didSelect(at: $0)
+        }
+    }
+}
+
+protocol PresenterExpecatations {
+    
+    var didCallGameInProgress: Bool { get set }
+    var didCallDraw: Bool { get set }
+    var didCallWin: Bool { get set }
+    var didCallError: Bool { get set }
 }
 
 class GameViewControllerMock: ViewPresenter {
     
-    var expecatation: ViewExpecatations!
+    var expecatation: PresenterExpecatations!
     
-    init(with expecatation: ViewExpecatations) {
+    init(with expecatation: PresenterExpecatations) {
         self.expecatation = expecatation
     }
     
     func playerPlaced(with message: String) {
-        self.expecatation.didCallGameInProgress.fulfill()
+        self.expecatation.didCallGameInProgress = true
     }
     
     func gameDraw(with message: String) {
-        self.expecatation.didCallDraw.fulfill()
+        self.expecatation.didCallDraw = true
     }
     
     func win(with message: String) {
-        self.expecatation.didCallWin.fulfill()
+        self.expecatation.didCallWin = true
     }
     
     func error(with message: String) {
-        self.expecatation.didCallError.fulfill()
+        self.expecatation.didCallError = true
     }
 }
 
-struct BindExpecatations: ViewExpecatations {
+class GameExpecatations: PresenterExpecatations {
     
-    var didCallGameInProgress = XCTestExpectation()
-    var didCallDraw = XCTestExpectation()
-    var didCallWin = XCTestExpectation()
-    var didCallError = XCTestExpectation()
+    var didCallGameInProgress = false
+    var didCallDraw = false
+    var didCallWin = false
+    var didCallError = false
 }
 
 enum IndexPaths {
