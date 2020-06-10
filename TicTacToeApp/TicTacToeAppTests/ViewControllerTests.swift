@@ -64,12 +64,34 @@ class ViewControllerTests: XCTestCase {
         XCTAssertNotNil(presenter)
     }
     
-    func test_selectCollectionViewItem_showStatusOnLabel() {
+    func test_selectCollectionViewItem_setStatusInProgress() {
         
         let collectionView = self.gameViewController.collectionView!
         collectionView.selectItem(at: IndexPaths.r0c0, animated: false, scrollPosition: .centeredVertically)
         self.gameViewController.collectionView(collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
         
         XCTAssertEqual(self.gameViewController.statusLabel.text!, "In progress")
+    }
+    
+    func test_selectCollectionViewAllItems_setStatusDraw() {
+        
+        let collectionView = self.gameViewController.collectionView!
+        
+        let indexPaths = [IndexPaths.r0c0,
+                          IndexPaths.r1c0,
+                          IndexPaths.r2c0,
+                          IndexPaths.r0c1,
+                          IndexPaths.r0c2,
+                          IndexPaths.r1c1,
+                          IndexPaths.r1c2,
+                          IndexPaths.r2c2,
+                          IndexPaths.r2c1]
+        
+        indexPaths.forEach {
+            collectionView.selectItem(at: $0, animated: false, scrollPosition: .centeredVertically)
+            self.gameViewController.collectionView(collectionView, didSelectItemAt: $0)
+        }
+        
+        XCTAssertEqual(self.gameViewController.statusLabel.text!, "Game Draw")
     }
 }
