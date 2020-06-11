@@ -7,14 +7,23 @@ protocol ViewPresenter {
     func gameDraw(with message: String)
     func win(with message: String)
     func error(with message: String)
+    func reloadGameView()
 }
 
-class GameViewPresenter {
+protocol Presenter {
+    
+    init(with delegate: ViewPresenter)
+    func didSelect(at indexPath: IndexPath)
+    func player(at indexPath: IndexPath) -> Player?
+    func resetGame()
+}
+
+class GameViewPresenter: Presenter {
     
     let delegate: ViewPresenter
-    let game = TicTacToeGame()
+    var game = TicTacToeGame()
     
-    init(with delegate: ViewPresenter) {
+    required init(with delegate: ViewPresenter) {
         self.delegate = delegate
     }
     
@@ -30,10 +39,16 @@ class GameViewPresenter {
     }
     
     func player(at indexPath: IndexPath) -> Player? {
-
+        
         let position = Position(row: indexPath.row, coloumn: indexPath.section)
         let player = try? self.game.gameBoard.player(at: position)
         return player
+    }
+    
+    func resetGame() {
+        
+        self.game = TicTacToeGame()
+        self.delegate.reloadGameView()
     }
 }
 

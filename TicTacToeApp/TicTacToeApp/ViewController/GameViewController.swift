@@ -12,6 +12,10 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         self.viewPresenter = GameViewPresenter(with: self)
     }
+    
+    @IBAction func resetGame(_ sender: UIButton) {
+        self.viewPresenter?.resetGame()
+    }
 }
 
 extension GameViewController: ViewPresenter {
@@ -30,5 +34,9 @@ extension GameViewController: ViewPresenter {
     
     func error(with message: String) {
         self.statusLabel.text = message
+    }
+    
+    func reloadGameView() {
+        self.collectionView.reloadData()
     }
 }

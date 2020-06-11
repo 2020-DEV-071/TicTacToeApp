@@ -73,6 +73,12 @@ class GameViewPresenterTests: XCTestCase {
         
         XCTAssertEqual(player, Player.x)
     }
+    
+    func test_selectResetButton_callResetView() {
+        
+        self.presenter.resetGame()
+        XCTAssertTrue(self.expec.didCallResetView)
+    }
 }
 
 extension GameViewPresenterTests {
@@ -91,6 +97,7 @@ protocol PresenterExpecatations {
     var didCallDraw: Bool { get set }
     var didCallWin: Bool { get set }
     var didCallError: Bool { get set }
+    var didCallResetView: Bool {get set }
 }
 
 class GameViewControllerMock: ViewPresenter {
@@ -116,6 +123,10 @@ class GameViewControllerMock: ViewPresenter {
     func error(with message: String) {
         self.expecatation.didCallError = true
     }
+    
+    func reloadGameView() {
+        self.expecatation.didCallResetView = true
+    }
 }
 
 class GameExpecatations: PresenterExpecatations {
@@ -124,6 +135,7 @@ class GameExpecatations: PresenterExpecatations {
     var didCallDraw = false
     var didCallWin = false
     var didCallError = false
+    var didCallResetView = false
 }
 
 enum IndexPaths {
