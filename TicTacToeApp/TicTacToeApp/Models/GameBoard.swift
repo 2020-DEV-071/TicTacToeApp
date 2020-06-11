@@ -2,7 +2,7 @@
 class GameBoard: Board {
     
     private let rowsAndColoumns: Int
-    private(set) var board: Matrix2D
+    private(set) var board: MatrixBoard
     private(set) var currentPlayer: Player
     private var lastPlacedPlayer: Player?
     
@@ -10,7 +10,7 @@ class GameBoard: Board {
         
         self.rowsAndColoumns = rowsAndColoumns
         self.currentPlayer = firstPlayer
-        self.board = Matrix2D(repeating: [Player?](repeating: nil,
+        self.board = MatrixBoard(repeating: [Player?](repeating: nil,
                                                    count: rowsAndColoumns),
                               count: rowsAndColoumns)
     }

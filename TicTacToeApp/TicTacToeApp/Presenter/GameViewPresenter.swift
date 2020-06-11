@@ -1,12 +1,12 @@
 
 import Foundation
 
-class GameViewPresenter: Presenter {
+class GameViewPresenter: GamePresenterProtocol {
     
-    let delegate: ViewPresenter
+    let delegate: GameViewProtocol
     var game: Game
     
-    required init(with delegate: ViewPresenter) {
+    required init(with delegate: GameViewProtocol) {
         
         self.delegate = delegate
         let resultAnalyzer = ResultAnalyser()

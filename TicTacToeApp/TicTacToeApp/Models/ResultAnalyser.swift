@@ -3,7 +3,7 @@ struct ResultAnalyser: WinCriteria {
     
     func gameStatus(for game: Board) -> GameResult {
         
-        let winRow = self.winRow(for: game.currentPlayer)
+        let winRow = self.matchingWinRow(for: game.currentPlayer)
         
         guard self.containsHorizontalRow(in: game.board, matching: winRow) ||
             self.containsVerticalRow(in: game.board, matching: winRow) ||
@@ -21,7 +21,7 @@ extension ResultAnalyser {
     
     private static let rowAndColoumns = 3
     
-    private func containsHorizontalRow(in gameBoard: Matrix2D, matching winRow: [Player]) -> Bool {
+    private func containsHorizontalRow(in gameBoard: MatrixBoard, matching winRow: [Player]) -> Bool {
         
         for row in gameBoard where row.count == ResultAnalyser.rowAndColoumns {
             if row.elementsEqual(winRow) {
@@ -31,7 +31,7 @@ extension ResultAnalyser {
         return false
     }
     
-    private func containsVerticalRow(in gameBoard: Matrix2D, matching winRow: [Player]) -> Bool {
+    private func containsVerticalRow(in gameBoard: MatrixBoard, matching winRow: [Player]) -> Bool {
         
         for i in 0..<gameBoard.count {
             let coloumn = gameBoard.map { $0[i] }
@@ -42,7 +42,7 @@ extension ResultAnalyser {
         return false
     }
     
-    private func containsDiagonalRow(in gameBoard: Matrix2D, matching winRow: [Player]) -> Bool {
+    private func containsDiagonalRow(in gameBoard: MatrixBoard, matching winRow: [Player]) -> Bool {
         
         var diagonal = [Player?]()
         
@@ -70,7 +70,7 @@ extension ResultAnalyser {
         return true
     }
     
-    private func winRow(for player: Player) -> [Player] {
+    private func matchingWinRow(for player: Player) -> [Player] {
         
         return Array(repeating: player, count: ResultAnalyser.rowAndColoumns)
     }

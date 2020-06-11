@@ -5,7 +5,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet private(set) weak var collectionView: UICollectionView!
     @IBOutlet private(set) weak var statusLabel: UILabel!
-    private(set) var viewPresenter: Presenter?
+    private(set) var viewPresenter: GamePresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class GameViewController: UIViewController {
     }
 }
 
-extension GameViewController: ViewPresenter {
+extension GameViewController: GameViewProtocol {
     
     func playerPlaced(with message: String) {
         self.statusLabel.text = message

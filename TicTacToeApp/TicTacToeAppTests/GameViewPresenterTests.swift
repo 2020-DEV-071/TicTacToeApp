@@ -100,7 +100,7 @@ protocol PresenterExpecatations {
     var didCallResetView: Bool {get set }
 }
 
-class GameViewControllerMock: ViewPresenter {
+class GameViewControllerMock: GameViewProtocol {
     
     var expecatation: PresenterExpecatations!
     

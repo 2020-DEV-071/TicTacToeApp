@@ -1,5 +1,5 @@
 
-protocol ViewPresenter {
+protocol GameViewProtocol {
     
     func playerPlaced(with message: String)
     func gameDraw(with message: String)
