@@ -4,7 +4,8 @@
 
 The rules are described below :
 
-+ X always goes first.
++ X (displayed in blue colour tile) always goes first.
++ O is displayed in orange colour
 + Players cannot play on a played position.
 + Players alternate placing X’s and O’s on the board until either:
 + One player has three in a row, horizontally, vertically or diagonally
