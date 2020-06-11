@@ -30,6 +30,7 @@
 		3CDC4A14248E9F74006469E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CDC4A12248E9F74006469E3 /* Main.storyboard */; };
 		3CDC4A16248E9F74006469E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CDC4A15248E9F74006469E3 /* Assets.xcassets */; };
 		3CDC4A19248E9F74006469E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CDC4A17248E9F74006469E3 /* LaunchScreen.storyboard */; };
+		3CE1A6332492D6AF00205466 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE1A6322492D6AF00205466 /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		3CDC4A1A248E9F74006469E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CDC4A1F248E9F74006469E3 /* TicTacToeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacToeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CDC4A25248E9F74006469E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CE1A6322492D6AF00205466 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,13 +105,14 @@
 		3CD8D59B248ECDE2000C0A23 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3CD8D5A8248ED63D000C0A23 /* Error */,
-				3CD8D5AE248F1B0D000C0A23 /* Protocols */,
+				3CD8D599248EA115000C0A23 /* TicTacToeGame.swift */,
 				3CD8D5A0248ECE23000C0A23 /* GameBoard.swift */,
 				3CD8D59C248ECDEF000C0A23 /* Player.swift */,
 				3CD8D59E248ECE0B000C0A23 /* Position.swift */,
 				3CD8D5AF248F1B57000C0A23 /* GameResult.swift */,
 				3C4F03CB248FFEFF008294D0 /* ResultAnalyser.swift */,
+				3CD8D5A8248ED63D000C0A23 /* Error */,
+				3CD8D5AE248F1B0D000C0A23 /* Protocols */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			children = (
 				3CD8D5AA248F1ACD000C0A23 /* Board.swift */,
 				3CD8D5AC248F1AF4000C0A23 /* WinCriteria.swift */,
+				3CE1A6322492D6AF00205466 /* Game.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -180,11 +184,10 @@
 			children = (
 				3CDC4A0C248E9F74006469E3 /* AppDelegate.swift */,
 				3CDC4A0E248E9F74006469E3 /* SceneDelegate.swift */,
-				3CD8D599248EA115000C0A23 /* TicTacToeGame.swift */,
 				3CD8D59B248ECDE2000C0A23 /* Models */,
-				3CD8D5A9248ED663000C0A23 /* Constants */,
-				3C11CD4C24912A38003A5833 /* Presenter */,
 				3CD8D5A2248ECE87000C0A23 /* ViewController */,
+				3C11CD4C24912A38003A5833 /* Presenter */,
+				3CD8D5A9248ED663000C0A23 /* Constants */,
 				3CD8D5A3248ECEBE000C0A23 /* Storyboard */,
 				3CDC4A15248E9F74006469E3 /* Assets.xcassets */,
 				3CDC4A1A248E9F74006469E3 /* Info.plist */,
@@ -304,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CD8D59A248EA115000C0A23 /* TicTacToeGame.swift in Sources */,
+				3CE1A6332492D6AF00205466 /* Game.swift in Sources */,
 				3C79B4A42491C88000A9DD75 /* GameViewProtocol.swift in Sources */,
 				3CDC4A11248E9F74006469E3 /* GameViewController.swift in Sources */,
 				3C79B4A62491C8AB00A9DD75 /* GamePresenterProtocol.swift in Sources */,
