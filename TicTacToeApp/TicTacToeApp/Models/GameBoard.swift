@@ -1,23 +1,28 @@
 
-struct GameBoard: Board {
-        
-    private static let rows = 3
-    private static let coloumns = 3
+class GameBoard: Board {
     
-    private(set) var board = Matrix2D(repeating: [Player?](repeating: nil, count: GameBoard.rows), count: GameBoard.coloumns)
-    private(set) var currentPlayer: Player?
+    private let rowsAndColoumns: Int
+    private(set) var board: Matrix2D
+    private(set) var currentPlayer: Player
     private var lastPlacedPlayer: Player?
+    
+    required init(with rowsAndColoumns: Int, player firstPlayer: Player) {
+        
+        self.rowsAndColoumns = rowsAndColoumns
+        self.currentPlayer = firstPlayer
+        self.board = Matrix2D(repeating: [Player?](repeating: nil,
+                                                   count: rowsAndColoumns),
+                              count: rowsAndColoumns)
+    }
     
     var unfilledSquares: Int {
         
         var count = 0
-        
         self.board.forEach { row in
             count = row.reduce(count) { count, player in
                 return player == nil ? count + 1 : count
             }
         }
-        
         return count
     }
     
@@ -34,11 +39,11 @@ struct GameBoard: Board {
         return self.board[position.row][position.coloumn]
     }
     
-    mutating func setCurrentPlayer(player: Player) throws {
+    func setCurrentPlayer(player: Player) throws {
         
         func validateIfFirst() throws {
             
-            if self.unfilledSquares == GameBoard.rows * GameBoard.coloumns  {
+            if self.unfilledSquares == self.rowsAndColoumns * self.rowsAndColoumns  {
                 guard player == .x else {
                     throw GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer)
                 }
@@ -54,7 +59,7 @@ struct GameBoard: Board {
         self.currentPlayer = player
     }
     
-    mutating func placePlayer(at position: Position) throws {
+    func placePlayer(at position: Position) throws {
         
         guard try self.player(at: position) == nil else {
             throw GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed)

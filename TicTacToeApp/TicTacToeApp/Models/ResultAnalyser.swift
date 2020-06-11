@@ -3,8 +3,7 @@ struct ResultAnalyser: WinCriteria {
     
     func gameStatus(for game: Board) -> GameResult {
         
-        guard let currentPlayer = game.currentPlayer else { return .inProgress }
-        let winRow = self.winRow(for: currentPlayer)
+        let winRow = self.winRow(for: game.currentPlayer)
         
         guard self.containsHorizontalRow(in: game.board, matching: winRow) ||
             self.containsVerticalRow(in: game.board, matching: winRow) ||
@@ -14,7 +13,7 @@ struct ResultAnalyser: WinCriteria {
                 return .inProgress
         }
         
-        return .win(player: currentPlayer)
+        return .win(player: game.currentPlayer)
     }
 }
 

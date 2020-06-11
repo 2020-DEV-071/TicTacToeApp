@@ -8,7 +8,9 @@ class TicTacToeGameTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.game = TicTacToeGame()
+        
+        let winAnalyzer = ResultAnalyser()
+        self.game = TicTacToeGame(with: winAnalyzer)
     }
     
     override func tearDown() {

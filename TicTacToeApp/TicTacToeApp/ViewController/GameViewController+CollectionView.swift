@@ -17,13 +17,17 @@ extension GameViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameViewController.cellIdentifier, for: indexPath)
         
-        guard let player = self.viewPresenter?.player(at: indexPath) else {
-            cell.contentView.backgroundColor = .gray
-            return cell
-        }
-        let playerColor: UIColor = player == .x ? .blue : .orange
-        cell.contentView.backgroundColor = playerColor
+        cell.contentView.backgroundColor = self.playerColor(at: indexPath)
         return cell
+    }
+    
+    private func playerColor(at indexPath: IndexPath) -> UIColor {
+        
+        guard let player = self.viewPresenter?.player(at: indexPath) else {
+            return .gray
+        }
+        
+        return player == .x ? .blue : .orange
     }
 }
 

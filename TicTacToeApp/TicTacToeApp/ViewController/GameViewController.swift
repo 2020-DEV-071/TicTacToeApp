@@ -5,16 +5,17 @@ class GameViewController: UIViewController {
     
     @IBOutlet private(set) weak var collectionView: UICollectionView!
     @IBOutlet private(set) weak var statusLabel: UILabel!
-    
-    private(set) var viewPresenter: GameViewPresenter?
+    private(set) var viewPresenter: Presenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.viewPresenter = GameViewPresenter(with: self)
     }
     
     @IBAction func resetGame(_ sender: UIButton) {
         self.viewPresenter?.resetGame()
+        self.statusLabel.text = ""
     }
 }
 

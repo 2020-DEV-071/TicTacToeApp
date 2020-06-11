@@ -72,7 +72,7 @@ class ViewControllerTests: XCTestCase {
         self.gameVC.collectionView(collectionView,
                                    didSelectItemAt: IndexPaths.r0c0)
         
-        XCTAssertEqual(self.gameVC.statusLabel.text!, "In progress")
+        XCTAssertEqual(self.gameVC.statusLabel.text!, "Game in progress")
     }
     
     func test_selectCollectionViewAllItems_setStatusDraw() {

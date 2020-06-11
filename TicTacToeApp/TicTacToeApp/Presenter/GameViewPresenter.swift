@@ -1,30 +1,16 @@
 
 import Foundation
 
-protocol ViewPresenter {
-    
-    func playerPlaced(with message: String)
-    func gameDraw(with message: String)
-    func win(with message: String)
-    func error(with message: String)
-    func reloadGameView()
-}
-
-protocol Presenter {
-    
-    init(with delegate: ViewPresenter)
-    func didSelect(at indexPath: IndexPath)
-    func player(at indexPath: IndexPath) -> Player?
-    func resetGame()
-}
-
 class GameViewPresenter: Presenter {
     
     let delegate: ViewPresenter
-    var game = TicTacToeGame()
+    var game: Game
     
     required init(with delegate: ViewPresenter) {
+        
         self.delegate = delegate
+        let resultAnalyzer = ResultAnalyser()
+        self.game = TicTacToeGame(with: resultAnalyzer)
     }
     
     func didSelect(at indexPath: IndexPath) {
@@ -47,7 +33,8 @@ class GameViewPresenter: Presenter {
     
     func resetGame() {
         
-        self.game = TicTacToeGame()
+        let resultAnalyzer = ResultAnalyser()
+        self.game = TicTacToeGame(with: resultAnalyzer)
         self.delegate.reloadGameView()
     }
 }
@@ -57,7 +44,7 @@ extension GameViewPresenter {
     private func showResult(with result: GameResult) {
         switch result {
         case .inProgress:
-            self.delegate.playerPlaced(with: "In progress")
+            self.delegate.playerPlaced(with: "Game in progress")
         case .draw:
             self.delegate.gameDraw(with: "Game Draw")
         case .win(let player):
@@ -66,6 +53,7 @@ extension GameViewPresenter {
     }
     
     private func logError(with error: Error) {
+        
         if let error = error as? GameError {
             
             switch error {
@@ -78,4 +66,5 @@ extension GameViewPresenter {
             }
         }
     }
+    
 }

@@ -1,16 +1,25 @@
 
 protocol Game {
     
+    var gameBoard: Board { get }
+    init(with winAnalyser: WinCriteria)
     func place(at position: Position) throws -> GameResult
     func place(player: Player, at position: Position) throws -> GameResult
 }
 
 class TicTacToeGame: Game {
     
-    private let resultAnalyser = ResultAnalyser()
-    private(set) var gameBoard = GameBoard()
+    private let rowAndColoumns = 3
+    private let winAnalyser: WinCriteria
+    private(set) var gameBoard: Board
     private(set) var player = Player.x
     private var isGameEnd = false
+    
+    required init(with winAnalyser: WinCriteria) {
+        
+        self.gameBoard = GameBoard(with: self.rowAndColoumns, player: self.player)
+        self.winAnalyser = winAnalyser
+    }
     
     func place(at position: Position) throws -> GameResult {
         
@@ -36,7 +45,7 @@ extension TicTacToeGame {
     
     private func moveResult() -> GameResult {
         
-        let result = self.resultAnalyser.gameStatus(for: self.gameBoard)
+        let result = self.winAnalyser.gameStatus(for: self.gameBoard)
         self.isGameEnd = result != .inProgress ? true : false
         return result
     }
