@@ -18,7 +18,7 @@ class GameViewPresenter: GamePresenterProtocol {
         let position = Position(row: indexPath.row, coloumn: indexPath.section)
         do {
             let result = try self.game.place(at: position)
-            self.showResult(with: result)
+            self.showResult(for: indexPath, with: result)
         } catch { 
             self.logError(with: error)
         }
@@ -41,15 +41,9 @@ class GameViewPresenter: GamePresenterProtocol {
 
 extension GameViewPresenter {
     
-    private func showResult(with result: GameResult) {
-        switch result {
-        case .inProgress:
-            self.delegate.playerPlaced(with: "Game in progress")
-        case .draw:
-            self.delegate.gameDraw(with: "Game Draw")
-        case .win(let player):
-            self.delegate.win(with: "Win!! \(player)")
-        }
+    private func showResult(for indexPath: IndexPath, with result: GameResult) {
+        
+        self.delegate.didPlacePlayer(at: indexPath, with: result)
     }
     
     private func logError(with error: Error) {

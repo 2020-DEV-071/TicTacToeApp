@@ -20,17 +20,17 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController: GameViewProtocol {
-    
-    func playerPlaced(with message: String) {
-        self.statusLabel.text = message
-    }
-    
-    func win(with message: String) {
-        self.statusLabel.text = message
-    }
-    
-    func gameDraw(with message: String) {
-        self.statusLabel.text = message
+        
+    func didPlacePlayer(at indexPath: IndexPath, with result: GameResult) {
+        
+        switch result {
+        case .inProgress:
+            self.statusLabel.text = GameConstants.inProgress
+        case .draw:
+            self.statusLabel.text = GameConstants.draw
+        case .win(let player):
+            self.statusLabel.text = "\(GameConstants.win)\(player)!"
+        }
     }
     
     func error(with message: String) {

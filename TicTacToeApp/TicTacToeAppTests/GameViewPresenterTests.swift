@@ -108,16 +108,16 @@ class GameViewControllerMock: GameViewProtocol {
         self.expecatation = expecatation
     }
     
-    func playerPlaced(with message: String) {
-        self.expecatation.didCallGameInProgress = true
-    }
-    
-    func gameDraw(with message: String) {
-        self.expecatation.didCallDraw = true
-    }
-    
-    func win(with message: String) {
-        self.expecatation.didCallWin = true
+    func didPlacePlayer(at indexPath: IndexPath, with result: GameResult) {
+        
+        switch result {
+        case .inProgress:
+            self.expecatation.didCallGameInProgress = true
+        case .draw:
+            self.expecatation.didCallDraw = true
+        case .win:
+            self.expecatation.didCallWin = true
+        }
     }
     
     func error(with message: String) {

@@ -1,9 +1,9 @@
 
+import Foundation
+
 protocol GameViewProtocol {
     
-    func playerPlaced(with message: String)
-    func gameDraw(with message: String)
-    func win(with message: String)
+    func didPlacePlayer(at indexPath: IndexPath, with result: GameResult)
     func error(with message: String)
     func reloadGameView()
 }

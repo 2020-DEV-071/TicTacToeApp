@@ -100,7 +100,7 @@ class ViewControllerTests: XCTestCase {
         
         self.selectItems(at: leftDiagonalCellItems)
         
-        XCTAssertEqual(self.gameVC.statusLabel.text!, "Win!! x")
+        XCTAssertEqual(self.gameVC.statusLabel.text!, "Winner is: x!")
     }
     
     func test_selectCollectionViewSameItemTwice_setStatusError() {
