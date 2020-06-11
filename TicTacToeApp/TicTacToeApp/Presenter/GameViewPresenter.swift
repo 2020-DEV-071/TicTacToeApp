@@ -18,7 +18,7 @@ class GameViewPresenter: GamePresenterProtocol {
         let position = Position(row: indexPath.row, coloumn: indexPath.section)
         do {
             let result = try self.game.place(at: position)
-            showResult(with: result)
+            self.showResult(with: result)
         } catch { 
             self.logError(with: error)
         }

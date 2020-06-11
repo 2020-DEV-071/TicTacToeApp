@@ -1,14 +1,13 @@
 
 class GameBoard: Board {
     
-    private let rowsAndColoumns: Int
+    private let rowsAndColoumns = 3
     private(set) var board: MatrixBoard
     private(set) var currentPlayer: Player
     private var lastPlacedPlayer: Player?
     
-    required init(with rowsAndColoumns: Int, player firstPlayer: Player) {
+    required init(with firstPlayer: Player) {
         
-        self.rowsAndColoumns = rowsAndColoumns
         self.currentPlayer = firstPlayer
         self.board = MatrixBoard(repeating: [Player?](repeating: nil,
                                                    count: rowsAndColoumns),

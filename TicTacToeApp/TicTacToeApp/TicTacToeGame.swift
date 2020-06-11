@@ -9,15 +9,14 @@ protocol Game {
 
 class TicTacToeGame: Game {
     
-    private let rowAndColoumns = 3
     private let winAnalyser: WinCriteria
     private(set) var gameBoard: Board
     private(set) var player = Player.x
     private var isGameEnd = false
-    
+        
     required init(with winAnalyser: WinCriteria) {
         
-        self.gameBoard = GameBoard(with: self.rowAndColoumns, player: self.player)
+        self.gameBoard = GameBoard(with: self.player)
         self.winAnalyser = winAnalyser
     }
     
