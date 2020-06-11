@@ -4,7 +4,7 @@ import XCTest
 
 class ViewControllerTests: XCTestCase {
     
-    var gameVC: GameViewController!
+    private var gameVC: GameViewController!
     
     override func setUp() {
         super.setUp()

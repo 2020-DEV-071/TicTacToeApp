@@ -4,7 +4,7 @@ import XCTest
 
 class TicTacToeGameTests: XCTestCase {
     
-    var game: TicTacToeGame!
+    private var game: TicTacToeGame!
     
     override func setUp() {
         super.setUp()
@@ -29,15 +29,6 @@ class TicTacToeGameTests: XCTestCase {
         XCTAssertNoThrow(try self.game.place(at: Positions.r0c0))
     }
     
-    func test_playerOGoesFirst_throwsError() {
-        
-        XCTAssertThrowsError(try self.game.place(player: .o,
-                                                 at: Positions.r0c0)) { error in
-                                                    XCTAssertEqual(error as! GameError,
-                                                                   GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer))
-        }
-    }
-    
     func test_unfilledSquaresAfterPlacingFirstPlayer_returnsExpectedCount() {
         
         let _ = try! self.game.place(at: Positions.r0c0)
@@ -52,17 +43,6 @@ class TicTacToeGameTests: XCTestCase {
         let player = try! self.game.gameBoard.player(at: Positions.r0c0)
         
         XCTAssertEqual(player, Player.x)
-    }
-    
-    func test_playerPlaceTwiceInSequence_throwsError() {
-        
-        let _ = try! self.game.place(at: Positions.r0c0)
-        
-        XCTAssertThrowsError(try self.game.place(player: .x,
-                                                 at: Positions.r0c1)) { error in
-                                                    XCTAssertEqual(error as! GameError,
-                                                                   GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedTwice))
-        }
     }
     
     func test_playerPlacedOnPlayedPosition_throwsError() {

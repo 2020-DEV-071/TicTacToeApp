@@ -8,7 +8,6 @@ protocol Board {
     var unfilledSquares: Int { get }
     
     init(with firstPlayer: Player)
-    func setCurrentPlayer(player: Player) throws
-    func placePlayer(at position: Position) throws
+    func set(player: Player, at position: Position) throws
     func player(at position: Position) throws -> Player?
 }

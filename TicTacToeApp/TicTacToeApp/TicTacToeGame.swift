@@ -4,7 +4,6 @@ protocol Game {
     var gameBoard: Board { get }
     init(with winAnalyser: WinCriteria)
     func place(at position: Position) throws -> GameResult
-    func place(player: Player, at position: Position) throws -> GameResult
 }
 
 class TicTacToeGame: Game {
@@ -13,7 +12,7 @@ class TicTacToeGame: Game {
     private(set) var gameBoard: Board
     private(set) var player = Player.x
     private var isGameEnd = false
-        
+    
     required init(with winAnalyser: WinCriteria) {
         
         self.gameBoard = GameBoard(with: self.player)
@@ -24,23 +23,22 @@ class TicTacToeGame: Game {
         
         try self.place(player: self.player, at: position)
     }
+}
+
+extension TicTacToeGame {
     
-    func place(player: Player, at position: Position) throws -> GameResult {
+    private func place(player: Player, at position: Position) throws -> GameResult {
         
         guard !isGameEnd else {
             throw GameError.gameEnd(message: GameConstants.gameEnd)
         }
         
-        try self.gameBoard.setCurrentPlayer(player: player)
-        try self.gameBoard.placePlayer(at: position)
+        try self.gameBoard.set(player: player, at: position)
         
         let result = self.moveResult()
         self.swapPlayer()
         return result
     }
-}
-
-extension TicTacToeGame {
     
     private func moveResult() -> GameResult {
         

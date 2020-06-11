@@ -4,14 +4,13 @@ class GameBoard: Board {
     private let rowsAndColoumns = 3
     private(set) var board: MatrixBoard
     private(set) var currentPlayer: Player
-    private var lastPlacedPlayer: Player?
     
     required init(with firstPlayer: Player) {
         
         self.currentPlayer = firstPlayer
         self.board = MatrixBoard(repeating: [Player?](repeating: nil,
-                                                   count: rowsAndColoumns),
-                              count: rowsAndColoumns)
+                                                      count: rowsAndColoumns),
+                                 count: rowsAndColoumns)
     }
     
     var unfilledSquares: Int {
@@ -38,33 +37,14 @@ class GameBoard: Board {
         return self.board[position.row][position.coloumn]
     }
     
-    func setCurrentPlayer(player: Player) throws {
-        
-        func validateIfFirst() throws {
-            
-            if self.unfilledSquares == self.rowsAndColoumns * self.rowsAndColoumns  {
-                guard player == .x else {
-                    throw GameError.playerXShouldMoveFirst(message: GameConstants.invalidFirstPlayer)
-                }
-            }
-        }
-        
-        try validateIfFirst()
-        
-        guard player != self.lastPlacedPlayer else {
-            throw GameError.samePlayerPlayedAgain(message: GameConstants.playerPlayedTwice)
-        }
+    func set(player: Player, at position: Position) throws {
         
         self.currentPlayer = player
-    }
-    
-    func placePlayer(at position: Position) throws {
         
         guard try self.player(at: position) == nil else {
             throw GameError.positionAlreadyPlayed(message: GameConstants.positionPlayed)
         }
         
         self.board[position.row][position.coloumn] = self.currentPlayer
-        self.lastPlacedPlayer = self.currentPlayer
     }
 }

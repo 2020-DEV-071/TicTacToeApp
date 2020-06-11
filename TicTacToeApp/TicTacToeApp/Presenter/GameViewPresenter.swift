@@ -3,8 +3,8 @@ import Foundation
 
 class GameViewPresenter: GamePresenterProtocol {
     
-    let delegate: GameViewProtocol
-    var game: Game
+    private let delegate: GameViewProtocol
+    private var game: Game
     
     required init(with delegate: GameViewProtocol) {
         
@@ -58,9 +58,7 @@ extension GameViewPresenter {
             
             switch error {
             case .gameEnd(let message),
-                 .playerXShouldMoveFirst(let message),
                  .positionAlreadyPlayed(let message),
-                 .samePlayerPlayedAgain(let message),
                  .positionOutOfRange(let message):
                 self.delegate.error(with: message)
             }

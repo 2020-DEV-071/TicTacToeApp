@@ -4,8 +4,8 @@ import XCTest
 
 class GameViewPresenterTests: XCTestCase {
     
-    var presenter: GameViewPresenter!
-    var expec: GameExpecatations!
+    private var presenter: GameViewPresenter!
+    private var expec: GameExpecatations!
     
     override func setUp() {
         super.setUp()
