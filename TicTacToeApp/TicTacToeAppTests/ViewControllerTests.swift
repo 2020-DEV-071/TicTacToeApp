@@ -131,10 +131,45 @@ class ViewControllerTests: XCTestCase {
         
         for indexItem in allItems {
             
-            let cell = self.gameVC.collectionView(self.gameVC.collectionView,
-                                                  cellForItemAt: indexItem)
-            XCTAssertEqual(cell.contentView.backgroundColor, UIColor.gray)
+            let selectedCell = self.gameVC.collectionView(self.gameVC.collectionView,
+                                                          cellForItemAt: indexItem)
+            XCTAssertEqual(selectedCell.contentView.backgroundColor, UIColor.gray)
         }
+    }
+    
+    func test_playerXSelectPosition_changeCellColourBlue() {
+        
+        self.selectItems(at: [IndexPaths.r2c2])
+        let xSelectedCell = self.gameVC.collectionView(self.gameVC.collectionView,
+                                                       cellForItemAt: IndexPaths.r2c2)
+        
+        XCTAssertEqual(xSelectedCell.contentView.backgroundColor, UIColor.blue)
+    }
+    
+    func test_playerOSelectPosition_changeCellColourOrange() {
+        
+        let cellItems = [IndexPaths.r0c0,
+                         IndexPaths.r1c1]
+        
+        self.selectItems(at: cellItems)
+        let OSelectedCell = self.gameVC.collectionView(self.gameVC.collectionView,
+                                                       cellForItemAt: IndexPaths.r1c1)
+        
+        XCTAssertEqual(OSelectedCell.contentView.backgroundColor, UIColor.orange)
+    }
+    
+    func test_selectPlayedCellPosition_donNotChangeColour() {
+        
+        let selectedCells = [IndexPaths.r0c0,
+                             IndexPaths.r0c1,
+                             IndexPaths.r0c0]
+        
+        self.selectItems(at: selectedCells)
+        
+        let doubleSelectionCell = self.gameVC.collectionView(self.gameVC.collectionView,
+                                                             cellForItemAt: IndexPaths.r0c0)
+        
+        XCTAssertEqual(doubleSelectionCell.contentView.backgroundColor, UIColor.blue)
     }
 }
 
